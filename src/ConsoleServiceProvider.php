@@ -21,6 +21,11 @@ class ConsoleServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'console-service');
 
         // View Components
+
+        // Publishes
+        $this->publishes([
+            __DIR__ . '/public' => public_path('console-service'),
+        ], 'public');
     }
 
     public function register()
