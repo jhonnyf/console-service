@@ -1,0 +1,14 @@
+{
+    "name": "seventhcode/console-service",
+    "description": "Base de console",
+    "type": "library",
+    "require": {
+        "seventhcode/form-generator": "^1.4"
+    },
+    "authors": [
+        {
+            "name": "Jhonny Fialho",
+            "email": "jhonny@hello-world.cc"
+        }
+    ]
+}

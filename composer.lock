@@ -1,0 +1,53 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "98526b95ebadaccbfb4d476bb022c4b9",
+    "packages": [
+        {
+            "name": "seventhcode/form-generator",
+            "version": "v1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jhonnyf/form-generator.git",
+                "reference": "0b3c8e9fce765607340ce722cdac1b5e9d7db2c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jhonnyf/form-generator/zipball/0b3c8e9fce765607340ce722cdac1b5e9d7db2c5",
+                "reference": "0b3c8e9fce765607340ce722cdac1b5e9d7db2c5",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SenventhCode\\FormGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Jhonny Fialho",
+                    "email": "jhonny@hello-world.cc"
+                }
+            ],
+            "description": "Gerador de formularios",
+            "support": {
+                "issues": "https://github.com/jhonnyf/form-generator/issues",
+                "source": "https://github.com/jhonnyf/form-generator/tree/v1.4.3"
+            },
+            "time": "2021-05-15T04:03:05+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}
