@@ -59,7 +59,9 @@
                                     </form>                                                                    
                                 </div>
                                 <div class="col-lg-6 d-none d-md-inline-block">
-                                    <div class="auth-page-sidebar"></div>
+                                    <div class="auth-page-sidebar">
+                                        <img src="{{ asset('console-service/assets/images/auth-bg.jpg') }}" alt="">
+                                    </div>
                                 </div>
                             </div>                         
                         </div>
