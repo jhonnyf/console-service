@@ -10,5 +10,10 @@
             "name": "Jhonny Fialho",
             "email": "jhonny@hello-world.cc"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "SenventhCode\\ConsoleService\\": "src/"
+        }
+    }
 }
