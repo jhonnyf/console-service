@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace SenventhCode\ConsoleService\App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
