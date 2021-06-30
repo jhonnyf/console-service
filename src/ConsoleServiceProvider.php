@@ -29,11 +29,10 @@ class ConsoleServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . "/database/migrations" => database_path('migrations'),
+            __DIR__ . '/database/seeders'    => database_path('migrations/../seeders'),
+            __DIR__ . '/App/Models'          => database_path('migrations/../../App/Models'),
         ], 'migrations');
 
-        $this->publishes([
-            __DIR__ . '/database/seeders/' => database_path('migrations/../seeders'),
-        ], 'migrations');
     }
 
     public function register()
