@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use SenventhCode\ConsoleService\App\Http\Controllers\DashboardController;
 use SenventhCode\ConsoleService\App\Http\Controllers\LoginController;
-use SenventhCode\ConsoleService\App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +18,13 @@ use SenventhCode\ConsoleService\App\Http\Controllers\UsersController;
 Route::group(['prefix' => 'console'], function () {
     Route::get('login', [LoginController::class, 'index'])->name('login.index');
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
-    Route::get('starter', [LoginController::class, 'starter'])->name('login.starter');
     Route::post('authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'console'], function () {
-    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+Route::group(['prefix' => 'console'], function () {
+    Route::get('', function () {
+        return redirect()->route('dashboard');
+    });
+
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

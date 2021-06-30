@@ -8,6 +8,6 @@ class DashboardController extends MainController
 {
     public function index(Request $request)
     {
-        return view('dashboard.index');
+        return view('console-service::dashboard.index');
     }
 }
