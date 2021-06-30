@@ -29,4 +29,9 @@ class LoginController extends MainController
 
         return redirect()->route('login.index');
     }
+
+    public function starter()
+    {
+        return view("console-service::login.starter");
+    }
 }

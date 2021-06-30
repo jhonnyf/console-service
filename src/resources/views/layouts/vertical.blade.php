@@ -8,11 +8,11 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
         @if(isset($isDark) && $isDark)
-            @include('layouts.shared.head', ['isDark' => true])
+            @include('console-service::layouts.shared.head', ['isDark' => true])
         @elseif(isset($isRTL) && $isRTL)
-            @include('layouts.shared.head', ['isRTL' => true])
+            @include('console-service::layouts.shared.head', ['isRTL' => true])
         @else
-            @include('layouts.shared.head', ['isDark' => true])
+            @include('console-service::layouts.shared.head', ['isDark' => true])
         @endif
     </head>
     @if(isset($isScrollable) && $isScrollable)
@@ -39,8 +39,8 @@
     @endif
     <div id="wrapper">
 
-        @include('layouts.shared.header')
-        @include('layouts.shared.sidebar')
+        @include('console-service::layouts.shared.header')
+        @include('console-service::layouts.shared.sidebar')
 
         <div class="content-page">
             <div class="content">
@@ -51,11 +51,11 @@
                 </div>
             </div>
 
-            @include('layouts.shared.footer')
+            @include('console-service::layouts.shared.footer')
         </div>
     </div>
 
-    @include('layouts.shared.footer-script')
+    @include('console-service::layouts.shared.footer-script')
 
     @if (getenv('APP_ENV') === 'local')
         <script id="__bs_script__">//<![CDATA[
