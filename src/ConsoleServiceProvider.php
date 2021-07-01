@@ -17,6 +17,7 @@ class ConsoleServiceProvider extends ServiceProvider
         // Publishes
         $this->publishes([
             __DIR__ . '/public' => public_path('console-service'),
+            __DIR__ . '/resources/fonts' => public_path('console-service/../fonts'),
         ], 'public');
 
         $this->publishes([

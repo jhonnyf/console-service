@@ -9,6 +9,6 @@
     @if(isset($isRTL) && $isRTL)
         <link href="{{ URL::asset('console-service/assets/css/app-rtl.min.css') }}" rel="stylesheet" type="text/css" />
     @else
-        {{-- <link href="{{ URL::asset('console-service/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+        <link href="{{ URL::asset('console-service/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     @endif
 @endif

@@ -3,11 +3,11 @@
 
         <a href="/" class="navbar-brand mr-0 mr-md-2 logo">
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/logo.png') }}" alt="" height="24" />
+                <img src="{{ URL::asset('console-service/assets/images/logo.png') }}" alt="" height="24" />
                 <span class="d-inline h5 ml-1 text-logo">Seventh</span>
             </span>
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo.png') }}" alt="" height="24">
+                <img src="{{ URL::asset('console-service/assets/images/logo.png') }}" alt="" height="24">
             </span>
         </a>
 
@@ -29,17 +29,17 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/germany.jpg') }}" alt="user-image" class="mr-2" height="12"> <span
+                        <img src="{{ URL::asset('console-service/assets/images/flags/germany.jpg') }}" alt="user-image" class="mr-2" height="12"> <span
                             class="align-middle">German</span>
                     </a>
 
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/spain.jpg') }}" alt="user-image" class="mr-2" height="12"> <span
+                        <img src="{{ URL::asset('console-service/assets/images/flags/spain.jpg') }}" alt="user-image" class="mr-2" height="12"> <span
                             class="align-middle">Spanish</span>
                     </a>
 
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="{{ URL::asset('assets/images/flags/russia.jpg') }}" alt="user-image" class="mr-2" height="12"> <span
+                        <img src="{{ URL::asset('console-service/assets/images/flags/russia.jpg') }}" alt="user-image" class="mr-2" height="12"> <span
                             class="align-middle">Russian</span>
                     </a>
                 </div>
