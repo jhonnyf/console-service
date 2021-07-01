@@ -1,15 +1,16 @@
 <?php
 
-namespace SenventhCode\ConsoleService\App\Http\Controllers;
+namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Language;
-use Illuminate\Http\Request;
+use Illuminate\Database\Seeder;
 
-class DashboardController extends MainController
+class CategorySeeder extends Seeder
 {
-    public function index(Request $request)
+
+    public function run()
     {
         /**
          * ROOT
@@ -37,10 +38,6 @@ class DashboardController extends MainController
          */
 
         $this->create('Home', 3);
-
-        exit('-- | --');
-        
-        return view('console-service::dashboard.index');
     }
 
     private function create(string $name, int $category_id = null): void
