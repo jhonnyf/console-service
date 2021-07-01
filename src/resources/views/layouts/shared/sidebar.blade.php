@@ -5,7 +5,7 @@
 
         <div class="media-body">
             <h6 class="pro-user-name mt-0 mb-0">{{ Auth::user()->first_name }}</h6>
-            {{-- <span class="pro-user-desc">{{ Auth::user()->categories->first()->contents->first()->title }}</span> --}}
+            <span class="pro-user-desc">{{ Auth::user()->category->first()->contents->first()->title }}</span>
         </div>
         <div class="dropdown align-self-center profile-dropdown-menu">
             <a class="dropdown-toggle mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
