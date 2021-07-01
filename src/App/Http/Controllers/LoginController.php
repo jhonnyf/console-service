@@ -16,7 +16,7 @@ class LoginController extends MainController
 
     public function authenticate(Login $request)
     {
-        if (Auth::attempt($request->only(['email', 'password'])) === false) {
+        if (Auth::attempt($request->only(['email', 'password']), true) === false) {
             return redirect()->route('login.index');
         }
 
