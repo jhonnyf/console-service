@@ -13,8 +13,8 @@
             <span class="menu-arrow"></span>
         </a>
         <ul class="nav-second-level" aria-expanded="false">
-            {{-- @php
-                $usersTypes = \App\Models\Categories::find(2)->categorySecondary;                
+            @php
+                $usersTypes = \App\Models\Category::find(2)->secondary;                
             @endphp
             @if ($usersTypes->count() > 0)
                 @foreach ($usersTypes as $item)
@@ -22,15 +22,15 @@
                         <a href="{{ route('user.index', ['category_id' => $item->id ]) }}">{{ $item->contents->first()->title }}</a>
                     </li>
                 @endforeach
-            @endif             --}}
+            @endif            
         </ul>
     </li>
-    {{-- <li>
-        <a href="{{ route('categories.index') }}">
+    <li>
+        <a href="{{ route('category.index') }}">
             <i data-feather="sliders"></i>
             <span>Categoria</span>            
         </a>        
-    </li> --}}
+    </li>
     <li>
         <a href="javascript: void(0);">
             <i data-feather="file-text"></i>
@@ -38,41 +38,29 @@
             <span class="menu-arrow"></span>          
         </a> 
         <ul class="nav-second-level" aria-expanded="false">
-            {{-- @php
-                $usersTypes = \App\Models\Categories::find(3)->categorySecondary;                
+            @php
+                $usersTypes = \App\Models\Category::find(3)->secondary;                
             @endphp
             @if ($usersTypes->count() > 0)
                 @foreach ($usersTypes as $item)
                     <li>
-                        <a href="{{ route('contents.index', ['category_id' => $item->id ]) }}">{{ $item->contents->first()->title }}</a>
+                        <a href="{{ route('content.index', ['category_id' => $item->id ]) }}">{{ $item->contents->first()->title }}</a>
                     </li>
                 @endforeach
-            @endif --}}
+            @endif
         </ul>
-    </li>
-    {{-- <li>
-        <a href="{{ route('products.index') }}">
-            <i data-feather="package"></i>
-            <span>Produto</span>            
-        </a>        
-    </li>
+    </li>    
     <li class="menu-title">Configurações</li>
     <li>
-        <a href="{{ route('languages.index') }}">
+        <a href="{{ route('language.index') }}">
             <i data-feather="mic"></i>
             <span>Linguagem</span>            
         </a>        
     </li>
     <li>
-        <a href="{{ route('filesGalleries.index') }}">
+        <a href="{{ route('file-gallery.index') }}">
             <i data-feather="file-plus"></i>
             <span>Tipo de galeria</span>            
         </a>        
     </li>
-    <li>
-        <a href="{{ route('coins.index') }}">
-            <i data-feather="dollar-sign"></i>
-            <span>Moeda</span>            
-        </a>        
-    </li> --}}
 </ul>

@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
          * Usuários
          */
 
-        $this->create('Roots', 2);
+        $this->create('Root', 2);
         $this->create('Administrador', 2);
         $this->create('Cliente', 2);
 
