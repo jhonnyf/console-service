@@ -14,13 +14,14 @@ class ConsoleServiceProvider extends ServiceProvider
         // Views
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'console-service');
 
+        // Migrations
+        $this->loadMigrationsFrom(__DIR__ . "/database/migrations");
+
         // Publishes
         $this->publishes([
             __DIR__ . '/public'          => public_path('console-service'),
             __DIR__ . '/resources/fonts' => public_path('console-service/../fonts'),
-        ], 'public');
-
-        $this->loadMigrationsFrom(__DIR__ . "/database/migrations");
+        ], 'public');        
 
         $this->publishes([
             __DIR__ . '/database/seeders' => database_path('migrations/../seeders'),
