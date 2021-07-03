@@ -3,6 +3,10 @@
 namespace SenventhCode\ConsoleService;
 
 use Illuminate\Support\ServiceProvider;
+use SenventhCode\ConsoleService\App\View\Components\Breadcrumb;
+use SenventhCode\ConsoleService\App\View\Components\FormFields;
+use SenventhCode\ConsoleService\App\View\Components\Nav;
+use SenventhCode\ConsoleService\App\View\Components\TableFields;
 
 class ConsoleServiceProvider extends ServiceProvider
 {
@@ -16,6 +20,14 @@ class ConsoleServiceProvider extends ServiceProvider
 
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . "/database/migrations");
+
+        // Components
+        $this->loadViewComponentsAs('console-service', [
+            Breadcrumb::class,
+            TableFields::class,
+            Nav::class,
+            FormFields::class
+        ]);        
 
         // Publishes
         $this->publishes([

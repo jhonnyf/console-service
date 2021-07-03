@@ -2,14 +2,14 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
-use App\Services\Metadata\Metadata;
-use App\Services\QueryService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
+use SenventhCode\ConsoleService\App\Services\Metadata\Metadata;
+use SenventhCode\ConsoleService\App\Services\QueryService;
 
 abstract class MainController extends BaseController
 {
@@ -69,7 +69,7 @@ abstract class MainController extends BaseController
             ->orderBy('id', 'desc')
             ->get();
 
-        return view("{$this->Route}.index", $data);
+        return view("console-service::{$this->Route}.index", $data);
     }
 
     public function form(int $id = null, Request $request)
@@ -86,13 +86,13 @@ abstract class MainController extends BaseController
             $data['extraData'] = $setData;
             $data              = array_merge($data, $setData);
         }
-
+        
         $formValues = $this->Model->find($id);
         $formValues = $formValues ? $formValues->toArray() : [];
 
         $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
 
-        return view("{$this->Route}.form", $data);
+        return view("console-service::{$this->Route}.form", $data);
     }
 
     public function active(int $id)
@@ -121,7 +121,7 @@ abstract class MainController extends BaseController
 
     private function setModuleVariables(): void
     {
-        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
 
         $this->Route     = $ModuleConfig->Route;
         $this->TableName = $ModuleConfig->TableName;
@@ -130,21 +130,21 @@ abstract class MainController extends BaseController
 
     protected function setData(Request $request): array
     {
-        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
 
         return $ModuleConfig->setData($request);
     }
 
     protected function setCondition(Request $request): array
     {
-        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
 
         return $ModuleConfig->setCondition($request);
     }
 
     protected function setNav(Request $request, int $id = null): array
     {
-        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
 
         return $ModuleConfig->setNav($request, $id);
     }
