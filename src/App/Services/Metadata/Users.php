@@ -3,7 +3,6 @@
 namespace SenventhCode\ConsoleService\App\Services\Metadata;
 
 use SenventhCode\ConsoleService\App\Services\Metadata\Interfaces\RulesInterface;
-
 abstract class Users implements RulesInterface
 {
     public static function tableRules(array $columns): array
@@ -16,15 +15,14 @@ abstract class Users implements RulesInterface
         return $columns;
     }
 
-    public static function formRules(array $columns, array $formValues = []): array
-    {
-        $columns = Metadata::formRulesMain($columns, $formValues);
-
+    public static function baseRules(array $columns): array
+    {        
         $columns['first_name']['required'] = true;
         $columns['email']['required']      = true;
         $columns['document']['required']   = true;
 
         unset($columns['password']);
+        unset($columns['category_id']);
 
         return $columns;
     }

@@ -2,12 +2,14 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User as Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use SenventhCode\ConsoleService\App\Http\Requests\Password;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersStore;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersUpdate;
+use SenventhCode\FormGenerator\FormService;
 
 class UserController extends MainController
 {
@@ -81,7 +83,7 @@ class UserController extends MainController
             $data              = array_merge($data, $setData);
         }
 
-        $form = new FormElement;
+        $form = new FormService;
 
         $form->setAction(route('users.category-store', ['id' => $id]));
         $form->setAutocomplete(false);
@@ -91,7 +93,7 @@ class UserController extends MainController
         $categoryId->setName('category_id');
         $categoryId->setLabel('Categoria');
 
-        $categories = Categories::find(2)->categorySecondary;
+        $categories = Category::find(2)->categorySecondary;
         if ($categories->count() > 0) {
             $options = [];
             foreach ($categories as $key => $value) {

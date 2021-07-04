@@ -16,5 +16,5 @@ interface RulesInterface
      * @return array
      */
 
-    public static function formRules(array $columns): array;
+    public static function baseRules(array $columns): array;
 }

@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use SenventhCode\ConsoleService\App\Services\Metadata\Metadata;
 use SenventhCode\ConsoleService\App\Services\QueryService;
+use SenventhCode\FormGenerator\FormService;
 
 abstract class MainController extends BaseController
 {
@@ -86,11 +87,11 @@ abstract class MainController extends BaseController
             $data['extraData'] = $setData;
             $data              = array_merge($data, $setData);
         }
-        
+
         $formValues = $this->Model->find($id);
         $formValues = $formValues ? $formValues->toArray() : [];
 
-        $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
+        $data['formFields'] = FormService::init($this->Model, $formValues);
 
         return view("console-service::{$this->Route}.form", $data);
     }
