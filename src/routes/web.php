@@ -33,12 +33,12 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
 
             Route::group(['prefix' => 'category'], function () {
                 Route::get('{id}', [UserController::class, 'category'])->name('user.category');
-                Route::post('{id}', [UserController::class, 'categoryStore'])->name('user.category-store');
+                Route::post('store/{id}', [UserController::class, 'categoryStore'])->name('user.category-store');
             });
 
             Route::group(['prefix' => 'password'], function () {
                 Route::get('{id}', [UserController::class, 'password'])->name('user.password');
-                Route::post('{id}', [UserController::class, 'passwordStore'])->name('user.password-store');
+                Route::post('store/{id}', [UserController::class, 'passwordStore'])->name('user.password-store');
             });
 
             Route::get('', [UserController::class, 'index'])->name('user.index');

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use SenventhCode\ConsoleService\App\Http\Requests\Password;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersStore;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersUpdate;
-use SenventhCode\FormGenerator\FormService;
+use SenventhCode\FormGenerator\FormGenerator;
 
 class UserController extends MainController
 {
@@ -58,8 +58,7 @@ class UserController extends MainController
     {
         $User = Model::find($id);
 
-        $User->categories()->detach();
-        $User->categories()->attach($category_id);
+        $User->category()->associate($category_id)->save();
 
         return;
     }
@@ -83,39 +82,32 @@ class UserController extends MainController
             $data              = array_merge($data, $setData);
         }
 
-        $form = new FormService;
+        $options = [];
 
-        $form->setAction(route('users.category-store', ['id' => $id]));
-        $form->setAutocomplete(false);
-        $form->setMethod('post');
-
-        $categoryId = $form->newElement('select');
-        $categoryId->setName('category_id');
-        $categoryId->setLabel('Categoria');
-
-        $categories = Category::find(2)->categorySecondary;
+        $categories = Category::find(2)->secondary;
         if ($categories->count() > 0) {
-            $options = [];
             foreach ($categories as $key => $value) {
                 $options[$value->id] = $value->contents->first()->title;
             }
-
-            $categoryId->setOptions($options);
-            $categoryId->setValue(Model::find($id)->categories->first()->id);
         }
 
-        $form->addElement($categoryId);
+        $FormGenerator = new FormGenerator(route('user.category-store', ['id' => $id]));
 
-        $data['form'] = $form->render($data);
+        $FormGenerator->select('category_id')->setLabel('Categoria')->setOptions($options)->setRequired(true)->setValue(Model::find($id)->category_id);
+        $FormGenerator->button('enviar')->setLabel('Enviar');
 
-        return view('users.category', $data);
+        $data['form'] = $FormGenerator->render();
+
+        return view('console-service::user.category', $data);
     }
 
     public function categoryStore(int $id, Request $request)
     {
         $this->saveLink($id, $request->category_id);
 
-        return redirect()->route('users.category', ['id' => $id]);
+        $request->session()->flash('success', 'Ação realizada com sucesso!');
+
+        return redirect()->route('user.category', ['id' => $id]);
     }
 
     /**
@@ -137,34 +129,22 @@ class UserController extends MainController
             $data              = array_merge($data, $setData);
         }
 
-        $form = new FormElement;
+        $form = new FormGenerator(route('user.password-store', ['id' => $id]));
 
-        $form->setAction(route('users.password-store', ['id' => $id]));
-        $form->setAutocomplete(false);
-        $form->setMethod('post');
+        $form->input('password')->setLabel('Senha')->setType('password')->setRequired(true);
+        $form->input('co-password')->setLabel('Confirmação de senha')->setType('password')->setRequired(true);
+        $form->button('enviar')->setLabel('Enviar');
 
-        $password = $form->newElement('input');
-        $password->setName('password');
-        $password->setType('password');
-        $password->setLabel('Senha');
+        $data['form'] = $form->render();
 
-        $form->addElement($password);
-
-        $coPassword = $form->newElement('input');
-        $coPassword->setName('co-password');
-        $coPassword->setType('password');
-        $coPassword->setLabel('Confirmação de senha');
-
-        $form->addElement($coPassword);
-
-        $data['form'] = $form->render($data);
-
-        return view('users.password', $data);
+        return view('console-service::user.password', $data);
     }
 
     public function passwordStore(int $id, Password $request)
     {
         Model::find($id)->fill(['password' => Hash::make($request->password)])->save();
+
+        $request->session()->flash('success', 'Ação realizada com sucesso!');
 
         return redirect()->route("{$this->Route}.password", ['id' => $id, 'category_id' => $request->category_id]);
     }
