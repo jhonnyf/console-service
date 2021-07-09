@@ -18,16 +18,19 @@ abstract class Users implements RulesInterface
 
     public static function baseRules(array $columns): array
     {
+        $columns['first_name']['label']    = 'Nome';
         $columns['first_name']['required'] = true;
-        $columns['email']['required']      = true;
-        $columns['document']['required']   = true;
 
-        $columns['first_name']['label'] = 'Nome';
-        $columns['last_name']['label']  = 'Sobrenome';
-        $columns['email']['label']      = 'E-mail';
-        $columns['document']['label']   = 'Documento';
-        $columns['phone']['label']      = 'Telefone';
-        $columns['cellphone']['label']  = 'Celular';
+        $columns['email']['label']    = 'E-mail';
+        $columns['email']['required'] = true;
+        // $columns['email']['type'] = 'email';
+
+        $columns['document']['label']    = 'Documento';
+        $columns['document']['required'] = true;
+
+        $columns['last_name']['label'] = 'Sobrenome';
+        $columns['phone']['label']     = 'Telefone';
+        $columns['cellphone']['label'] = 'Celular';
 
         unset($columns['password']);
         unset($columns['category_id']);
