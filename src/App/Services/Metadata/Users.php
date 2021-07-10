@@ -21,9 +21,10 @@ abstract class Users implements RulesInterface
         $columns['first_name']['label']    = 'Nome';
         $columns['first_name']['required'] = true;
 
-        $columns['email']['label']    = 'E-mail';
-        $columns['email']['required'] = true;
-        // $columns['email']['type'] = 'email';
+        $columns['email']['label']       = 'E-mail';
+        $columns['email']['required']    = true;
+        $columns['email']['type']        = 'email';
+        $columns['email']['elementType'] = 'input';
 
         $columns['document']['label']    = 'Documento';
         $columns['document']['required'] = true;

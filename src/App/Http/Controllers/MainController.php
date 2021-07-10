@@ -82,16 +82,17 @@ abstract class MainController extends BaseController
             'nav'   => $this->setNav($request, $id),
         ];
 
-        $setData = $this->setData($request);
-        if (count($setData) > 0) {
-            $data['extraData'] = $setData;
-            $data              = array_merge($data, $setData);
-        }
-
         $formValues = $this->Model->find($id);
         $formValues = $formValues ? $formValues->toArray() : [];
 
         $FormGenerator = new FormGenerator(route('user.store', ['id' => $id]));
+        $setData       = $this->setData($request);
+        if (count($setData) > 0) {
+            foreach ($setData as $key => $value) {
+                $FormGenerator->input($key)->setValue($value)->setType('hidden');
+            }
+        }
+
         $FormGenerator->modelForm($this->Model, $formValues);
 
         $data['form'] = $FormGenerator->render();
