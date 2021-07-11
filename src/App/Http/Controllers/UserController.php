@@ -107,7 +107,9 @@ class UserController extends MainController
 
         $request->session()->flash('success', 'Ação realizada com sucesso!');
 
-        return redirect()->route('user.category', ['id' => $id]);
+        $category_id = Model::find($id)->category_id;
+
+        return redirect()->route('user.category', ['id' => $id, 'category_id' => $category_id]);
     }
 
     /**

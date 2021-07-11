@@ -1,6 +1,6 @@
 <?php
 
-namespace SenventhCode\ConsoleService\App\Services\Metadata;
+namespace SenventhCode\ConsoleService\App\Services\Metadata\Modules;
 
 use SenventhCode\ConsoleService\App\Services\Metadata\Interfaces\RulesInterface;
 
@@ -10,8 +10,8 @@ abstract class Users implements RulesInterface
     {
         unset($columns['active']);
         unset($columns['password']);
-
-        // $columns['user_type_id']['parameter'] = "userType->user_type";
+        unset($columns['remember_token']);
+        unset($columns['category_id']);        
 
         return $columns;
     }

@@ -70,7 +70,9 @@ abstract class MainController extends BaseController
             ->orderBy('id', 'desc')
             ->get();
 
-        return view("console-service::{$this->Route}.index", $data);
+        $view = view()->exists("console-service::{$this->Route}.index") ? "console-service::{$this->Route}.index" : "console-service::module-base.index";
+
+        return view($view, $data);
     }
 
     public function form(int $id = null, Request $request)
@@ -97,7 +99,9 @@ abstract class MainController extends BaseController
 
         $data['form'] = $FormGenerator->render();
 
-        return view("console-service::{$this->Route}.form", $data);
+        $view = view()->exists("console-service::{$this->Route}.form") ? "console-service::{$this->Route}.form" : "console-service::module-base.form";
+
+        return view($view, $data);
     }
 
     public function active(int $id)

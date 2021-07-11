@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="mb-3 d-flex justify-content-end">
-                        <form action="" class="form-inline" method="get">
+                        <form action="" class="form-inline" method="get" autocomplete="off">
                             <div class="form-group">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="search" id="search" value="{{ $search }}" placeholder="Pesquisar">
