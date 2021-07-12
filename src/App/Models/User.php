@@ -19,4 +19,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'user_file');
+    }
 }

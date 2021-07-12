@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use SenventhCode\ConsoleService\App\Http\Controllers\DashboardController;
+use SenventhCode\ConsoleService\App\Http\Controllers\FileController;
 use SenventhCode\ConsoleService\App\Http\Controllers\LoginController;
 use SenventhCode\ConsoleService\App\Http\Controllers\UserController;
 
@@ -94,16 +95,16 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
 
         Route::group(['prefix' => 'file'], function () {
 
-            Route::get('form/{id?}', 'FilesController@form')->name('file.form');
-            Route::put('form/{id}', 'FilesController@update')->name('file.update');
-            Route::get('active/{id}', 'FilesController@active')->name('file.active');
-            Route::get('destroy/{id}', 'FilesController@destroy')->name('file.destroy');
-    
-            Route::get('{module}/{link_id}', 'FilesController@listGalleries')->name('file.list-galleries');
-    
+            Route::get('form/{id?}', [FileController::class, 'form'])->name('file.form');
+            Route::put('form/{id}', [FileController::class, 'update'])->name('file.update');
+            Route::get('active/{id}', [FileController::class, 'status'])->name('file.active');
+            Route::get('destroy/{id}', [FileController::class, 'destroy'])->name('file.destroy');
+
+            Route::get('{module}/{link_id}', [FileController::class, 'listGalleries'])->name('file.list-galleries');
+
             Route::group(['prefix' => 'upload'], function () {
-                Route::get('form/{module}/{link_id}/{file_gallery_id}', 'FilesController@uploadForm')->name('file.upload-form');
-                Route::post('submit/{module}/{link_id}/{file_gallery_id}', 'FilesController@submitFiles')->name('file.upload-submit');
+                Route::get('form/{module}/{link_id}/{file_gallery_id}', [FileController::class, 'uploadForm'])->name('file.upload-form');
+                Route::post('submit/{module}/{link_id}/{file_gallery_id}', [FileController::class, 'submitFiles'])->name('file.upload-submit');
             });
         });
     });

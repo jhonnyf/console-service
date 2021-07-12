@@ -49,7 +49,7 @@ class UserModuleConfig extends AbstractModuleConfig
 
             $response[] = [
                 'name'  => 'Arquivos',
-                'route' => route('file.list-galleries', ['module' => 'users', 'link_id' => $id, 'category_id' => $request->category_id]),
+                'route' => route('file.list-galleries', ['module' => 'user', 'link_id' => $id, 'category_id' => $request->category_id]),
             ];
 
         }
