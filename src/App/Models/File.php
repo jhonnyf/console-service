@@ -9,19 +9,14 @@ class File extends Model
 
     protected $fillable = ['file_gallery_id', 'file_path', 'original_name', 'extension', 'size', 'mime_type'];
 
-    public function product()
+    public function user()
     {
-        return $this->belongsToMany(Products::class, 'links_products_files')->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_file')->withTimestamps();
     }
-    
+
     public function category()
     {
         return $this->belongsToMany(Categories::class, 'links_categories_files')->withTimestamps();
-    }
-
-    public function user()
-    {
-        return $this->belongsToMany(Users::class, 'links_files_users')->withTimestamps();
     }
 
     public function content()

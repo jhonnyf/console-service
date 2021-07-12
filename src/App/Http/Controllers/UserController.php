@@ -98,7 +98,7 @@ class UserController extends MainController
 
         $data['form'] = $FormGenerator->render();
 
-        return view('console-service::user.category', $data);
+        return view('console-service::module-base.form', $data);
     }
 
     public function categoryStore(int $id, Request $request)
@@ -139,7 +139,7 @@ class UserController extends MainController
 
         $data['form'] = $form->render();
 
-        return view('console-service::user.password', $data);
+        return view('console-service::module-base.form', $data);
     }
 
     public function passwordStore(int $id, Password $request)

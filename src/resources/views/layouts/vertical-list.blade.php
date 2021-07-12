@@ -47,18 +47,7 @@
                 <!-- Start Content-->
                 <div class="container-fluid">
                     @yield('breadcrumb')
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="card">
-                                <div class="card-body">
-                                    @yield('nav')
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-10">
-                            @yield('content')
-                        </div>
-                    </div>                    
+                    @yield('content')                  
                 </div>
             </div>
 

@@ -97,7 +97,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
 
             Route::get('form/{id?}', [FileController::class, 'form'])->name('file.form');
             Route::put('form/{id}', [FileController::class, 'update'])->name('file.update');
-            Route::get('active/{id}', [FileController::class, 'status'])->name('file.active');
+            Route::get('active/{id}', [FileController::class, 'status'])->name('file.status');
             Route::get('destroy/{id}', [FileController::class, 'destroy'])->name('file.destroy');
 
             Route::get('{module}/{link_id}', [FileController::class, 'listGalleries'])->name('file.list-galleries');

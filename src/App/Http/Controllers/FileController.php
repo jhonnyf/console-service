@@ -2,8 +2,8 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
-use App\Http\Requests\FileUpload;
 use App\Models\Contents;
+use App\Models\File;
 use App\Models\FileGallery;
 use App\Models\Files;
 use App\Models\Languages;
@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use SenventhCode\ConsoleService\App\Http\Requests\FileUpload;
 
 class FileController
 {
@@ -19,34 +20,36 @@ class FileController
         $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($module) . "ModuleConfig");
 
         $data = [
-            'module'         => $module,
-            'link_id'        => $link_id,
-            'nav'            => $ModuleConfig->setNav($request, $link_id),
-            'route'          => $ModuleConfig->Route,
-            'name'           => $ModuleConfig->Name,
-            'filesGalleries' => FileGallery::where(['active' => 1, 'module' => $module])
+            'module'          => $module,
+            'link_id'         => $link_id,
+            'nav'             => $ModuleConfig->setNav($request, $link_id),
+            'route'           => $ModuleConfig->Route,
+            'name'            => $ModuleConfig->Name,
+            'file_gallery_id' => $request->file_gallery_id,
+            'filesGalleries'  => FileGallery::where(['active' => 1, 'module' => $module])
                 ->orWhere(function ($q) {
                     $q->where('module', null)->orWhere('module', "");
                 })
                 ->get(),
         ];
 
-        if ($module == 'user') {
-            $data['entity'] = User::find($link_id)
-                ->files()
-                ->where('active', '<>', 2);
-        } elseif ($module == 'contents') {
-            // $data['entity'] = Contents::find($link_id)
-            //     ->files()
-            //     ->where('active', '<>', 2);
-        } elseif ($module == 'categories') {
-            // $data['entity'] = Categories::find($link_id)
-            //     ->files()
-            //     ->where('active', '<>', 2);
-        } elseif ($module == 'products') {
-            // $data['entity'] = Products::find($link_id)
-            //     ->files()
-            //     ->where('active', '<>', 2);
+        if ($data['file_gallery_id'] > 0) {
+
+            if ($module == 'user') {
+                $data['files'] = User::find($link_id)
+                    ->files()
+                    ->where('active', '<>', 2)
+                    ->where('file_gallery_id', $data['file_gallery_id'])
+                    ->get();
+            } elseif ($module == 'contents') {
+                // $data['entity'] = Contents::find($link_id)
+                //     ->files()
+                //     ->where('active', '<>', 2);
+            } elseif ($module == 'categories') {
+                // $data['entity'] = Categories::find($link_id)
+                //     ->files()
+                //     ->where('active', '<>', 2);
+            }
         }
 
         return view('console-service::file.list-galleries', $data);
@@ -88,19 +91,19 @@ class FileController
         $data['file_path'] = $request->file->store("public/{$module}");
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
 
-        $response = Files::create($data);
+        $response = File::create($data);
 
-        $this->creteContent($response->id);
+        // $this->creteContent($response->id);
 
-        $File = Files::find($response->id);
-        if ($module === 'users') {
-            $File->usersFile()->attach($link_id);
+        $File = File::find($response->id);
+        if ($module === 'user') {
+            $File->user()->attach($link_id);
         } elseif ($module === 'contents') {
-            $File->contentsFile()->attach($link_id);
+            // $File->contentsFile()->attach($link_id);
         } elseif ($module == 'categories') {
-            $File->categoriesFile()->attach($link_id);
+            // $File->categoriesFile()->attach($link_id);
         } elseif ($module == 'products') {
-            $File->productsFile()->attach($link_id);
+            // $File->productsFile()->attach($link_id);
         }
 
         return response()->json($response);
