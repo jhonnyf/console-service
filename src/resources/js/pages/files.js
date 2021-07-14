@@ -1,29 +1,5 @@
 const Files = function () {
 
-    const openUpload = function () {
-
-        let src = $(this).data('url');
-
-        axios.get(src)
-            .then(function (response) {
-                response = response.data;
-
-                $.fancybox.open({
-                    src: response.result,
-                    type: 'inline',
-                    opts: {
-                        modal: true,
-                        beforeClose: function () {
-                            window.location.reload();
-                        }
-                    }
-                });
-
-                let url = $('#dropzone-form').attr('action');
-                $('#dropzone-form').dropzone({ url: url });
-            });
-    }
-
     const editForm = function () {
 
         let src = $(this).data('url').split(window.location.origin);
@@ -72,11 +48,22 @@ const Files = function () {
 
     return {
         init: function () {
-            $(document).on("click", ".open-upload", openUpload);
-            $(document).on("click", ".edit-form", editForm);
+            // $(document).on("click", ".edit-form", editForm);
         }
     };
 
 }();
 
 export { Files }
+
+$(function () {
+    Files.init();
+});
+
+Dropzone.options.uploadConsoleService = {
+    init: function () {
+        this.on("complete", function (file) {
+            let response = JSON.parse(file.xhr.response);
+        });
+    }
+};

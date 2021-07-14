@@ -97,27 +97,6 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Files", function() { return Files; });
 var Files = function () {
-  var openUpload = function openUpload() {
-    var src = $(this).data('url');
-    axios.get(src).then(function (response) {
-      response = response.data;
-      $.fancybox.open({
-        src: response.result,
-        type: 'inline',
-        opts: {
-          modal: true,
-          beforeClose: function beforeClose() {
-            window.location.reload();
-          }
-        }
-      });
-      var url = $('#dropzone-form').attr('action');
-      $('#dropzone-form').dropzone({
-        url: url
-      });
-    });
-  };
-
   var editForm = function editForm() {
     var src = $(this).data('url').split(window.location.origin);
     axios.get(src[1], {
@@ -156,14 +135,22 @@ var Files = function () {
   };
 
   return {
-    init: function init() {
-      $(document).on("click", ".open-upload", openUpload);
-      $(document).on("click", ".edit-form", editForm);
+    init: function init() {// $(document).on("click", ".edit-form", editForm);
     }
   };
 }();
 
 
+$(function () {
+  Files.init();
+});
+Dropzone.options.uploadConsoleService = {
+  init: function init() {
+    this.on("complete", function (file) {
+      var response = JSON.parse(file.xhr.response);
+    });
+  }
+};
 
 /***/ }),
 

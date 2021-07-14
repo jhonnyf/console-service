@@ -34,10 +34,10 @@
                     </ul>
 
                     @if($file_gallery_id > 0)
-                        <form action="{{ route('file.upload-submit', ['module' => $module, 'link_id' => $link_id, 'file_gallery_id' => $file_gallery_id]) }}" method="POST" class="dropzone mt-3 mb-3">
+                        <form action="{{ route('file.upload-submit', ['module' => $module, 'link_id' => $link_id, 'file_gallery_id' => $file_gallery_id]) }}" method="POST" class="dropzone mt-3 mb-3" id="upload-console-service">
                             @csrf
                             <div class="dz-message needsclick">
-                                <i class="h1 text-muted  uil-cloud-upload"></i>
+                                <i class="h1 text-muted uil-cloud-upload"></i>
                                 <h3>Solte os arquivos aqui ou clique para fazer o upload.</h3>
                                 <span class="text-muted font-13">(Arquivos com no máximo 4MB)</span>
                             </div>
@@ -50,7 +50,6 @@
                         <p class="text-center">Selecione uma galeria para fazer o upload do seu arquivo</p>
                     @endisset
                                     
-
                 </div>
             </div>
         </div>
