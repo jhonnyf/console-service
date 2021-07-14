@@ -3,3 +3,5 @@ composer.lock
 src/node_modules
 src/package-lock.json
 src/mix-manifest.json
+src/fonts/*
+src/images/*
