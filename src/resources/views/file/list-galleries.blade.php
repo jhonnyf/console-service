@@ -4,13 +4,16 @@
     <x-console-service-breadcrumb :id="$link_id" :route="$route" :name="$name" />
 @endsection
 
-@section('nav')
-    <x-console-service-nav :id="$link_id" :nav="$nav" />
-@endsection
-
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <x-console-service-nav :id="$link_id" :nav="$nav" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">      
                     

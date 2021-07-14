@@ -1,4 +1,4 @@
-@extends('console-service::layouts.vertical-list')
+@extends('console-service::layouts.vertical')
 
 @section('breadcrumb')
     <x-console-service-breadcrumb :route="$route" :name="$name" />
