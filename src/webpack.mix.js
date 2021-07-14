@@ -115,37 +115,35 @@ lodash(third_party_assets).forEach(function (assets, type) {
 // mix.sass('resources/scss/bootstrap.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/bootstrap.css");
 // mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/icons.css");
 
-// var app_pages_assets = {
-//     js: [
-//         folder.src + "js/pages/dashboard.js",
-//         folder.src + "js/pages/category.js",
-//         folder.src + "js/pages/files.js",
-//         folder.src + "js/pages/product.js"
-//     ]
-// };
+var app_pages_assets = {
+    js: [        
+        folder.src + "js/pages/category.js",
+        folder.src + "js/pages/files.js",        
+    ]
+};
 
-// var out = folder.dist_assets + "js/";
-// lodash(app_pages_assets).forEach(function (assets, type) {
-//     for (let i = 0; i < assets.length; ++i) {
-//         mix.js(assets[i], out + "pages");
-//     };
-// });
+var out = folder.dist_assets + "js/";
+lodash(app_pages_assets).forEach(function (assets, type) {
+    for (let i = 0; i < assets.length; ++i) {
+        mix.js(assets[i], out + "pages");
+    };
+});
 
-// mix.combine('resources/js/app.js', folder.dist_assets + "js/app.min.js").minify(folder.dist_assets + "js/app.min.js");
+mix.combine('resources/js/app.js', folder.dist_assets + "js/app.min.js").minify(folder.dist_assets + "js/app.min.js");
 
-// mix.webpackConfig({
-//     plugins: [
-//         new BrowserSyncPlugin({
-//             port: 3000,
-//             files: [
-//                 'app/**/*',
-//                 'public/**/*',
-//                 'resources/views/**/*',
-//                 'routes/**/*'
-//             ]
-//         })
-//     ]
-// });
+mix.webpackConfig({
+    plugins: [
+        new BrowserSyncPlugin({
+            port: 3000,
+            files: [
+                'app/**/*',
+                'public/**/*',
+                'resources/views/**/*',
+                'routes/**/*'
+            ]
+        })
+    ]
+});
 
 var out = folder.dist_assets + "fonts";
 mix.copyDirectory(folder.src + "fonts", out);
