@@ -4,6 +4,7 @@ namespace SenventhCode\ConsoleService;
 
 use Illuminate\Support\ServiceProvider;
 use SenventhCode\ConsoleService\App\View\Components\Breadcrumb;
+use SenventhCode\ConsoleService\App\View\Components\FileItem;
 use SenventhCode\ConsoleService\App\View\Components\FilesList;
 use SenventhCode\ConsoleService\App\View\Components\FormFields;
 use SenventhCode\ConsoleService\App\View\Components\Nav;
@@ -30,7 +31,8 @@ class ConsoleServiceProvider extends ServiceProvider
             Nav::class,
             FormFields::class,
             ResponseForm::class,
-            FilesList::class
+            FileItem::class,
+            FilesList::class,            
         ]);        
 
         // Publishes

@@ -3,7 +3,7 @@
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
 use App\Models\Contents;
-use App\Models\File;
+use App\Models\File as Model;
 use App\Models\FileGallery;
 use App\Models\Files;
 use App\Models\Languages;
@@ -91,11 +91,11 @@ class FileController
         $data['file_path'] = $request->file->store("public/{$module}");
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
 
-        $response = File::create($data);
+        $response = Model::create($data);
 
         // $this->creteContent($response->id);
 
-        $File = File::find($response->id);
+        $File = Model::find($response->id);
         if ($module === 'user') {
             $File->user()->attach($link_id);
         } elseif ($module === 'contents') {
@@ -106,7 +106,13 @@ class FileController
             // $File->productsFile()->attach($link_id);
         }
 
-        return response()->json($response);
+        return response()->json([
+            'error'   => false,
+            'message' => 'Upload feito com sucesso!',
+            'result'  => [
+                'html' => view('console-service::components.file-item', ['file' => $File])->render(),
+            ],
+        ]);
     }
 
     private function creteContent(int $id): void
@@ -198,7 +204,7 @@ class FileController
 
     public function update(int $id, Request $request)
     {
-        $response = Files::find($id)->contents->where('id', $request->content_id)->first()->fill($request->all())->save();
+        $response = Model::find($id)->contents->where('id', $request->content_id)->first()->fill($request->all())->save();
 
         $data = [
             'class'   => $response ? 'success' : 'danger',
@@ -208,7 +214,7 @@ class FileController
         $response = [
             'error'   => $response,
             'message' => view('system.alert', $data)->render(),
-            'result'  => Files::with('contents')->find($id),
+            'result'  => Model::with('contents')->find($id),
         ];
 
         return response()->json($response);
@@ -216,22 +222,30 @@ class FileController
 
     public function active(int $id)
     {
-        $Object = Files::find($id);
+        $Object = Model::find($id);
 
         $Object->active = $Object->active === 1 ? 0 : 1;
         $Object->save();
 
-        return redirect()->back();
+        return response()->json([
+            'error'   => false,
+            'message' => 'Ação realizada com sucesso',
+            'result'  => $Object,
+        ]);
     }
 
     public function destroy(int $id)
     {
-        $Object = Files::find($id);
+        $Object = Model::find($id);
 
         $Object->active = 2;
         $Object->save();
 
-        return redirect()->back();
+        return response()->json([
+            'error'   => false,
+            'message' => 'Ação realizada com sucesso',
+            'result'  => [],
+        ]);
     }
 
 }
