@@ -8,6 +8,7 @@ use SenventhCode\ConsoleService\App\View\Components\FileItem;
 use SenventhCode\ConsoleService\App\View\Components\FilesList;
 use SenventhCode\ConsoleService\App\View\Components\FormFields;
 use SenventhCode\ConsoleService\App\View\Components\Nav;
+use SenventhCode\ConsoleService\App\View\Components\NavLanguages;
 use SenventhCode\ConsoleService\App\View\Components\ResponseForm;
 use SenventhCode\ConsoleService\App\View\Components\TableFields;
 
@@ -32,7 +33,8 @@ class ConsoleServiceProvider extends ServiceProvider
             FormFields::class,
             ResponseForm::class,
             FileItem::class,
-            FilesList::class,            
+            FilesList::class,  
+            NavLanguages::class          
         ]);        
 
         // Publishes

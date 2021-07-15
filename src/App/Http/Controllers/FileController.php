@@ -3,17 +3,14 @@
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
 use App\Models\Content;
-use App\Models\Contents;
 use App\Models\File as Model;
 use App\Models\FileGallery;
-use App\Models\Files;
 use App\Models\Language;
-use App\Models\Languages;
 use App\Models\User;
-use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use SenventhCode\ConsoleService\App\Http\Requests\FileUpload;
+use SenventhCode\FormGenerator\FormGenerator;
 
 class FileController
 {
@@ -120,58 +117,26 @@ class FileController
             'id'                     => $id,
             'route'                  => 'files',
             'btn_back'               => false,
-            'languages'              => Languages::where('active', '<>', 2)->orderBy('default', 'desc'),
-            'navLanguageRoute'       => 'files.form',
+            'languages'              => Language::where('active', '<>', 2)->orderBy('default', 'desc'),
+            'navLanguageRoute'       => 'file.form',
             'navLanguageRouteParams' => ['id' => $id],
             'classItem'              => ['edit-form', 'ajax-item'],
         ];
 
-        $LanguageDefault = Languages::where('default', true)->first();
+        $LanguageDefault = Language::where('default', true)->first();
 
         $language_id             = isset($request->language_id) ? $request->language_id : $LanguageDefault->id;
         $data['language_id']     = $language_id;
         $data['languageDefault'] = $LanguageDefault;
 
-        $file = Files::find($id)->contents->where('language_id', $language_id)->first();
+        $fileContent = Model::find($id)->contents()->where('language_id', 1)->first();
 
-        $form = new FormElement;
+        $Form = new FormGenerator(route('file.update', ['id' => $id]));
+        $Form->modelForm(new Content, $fileContent->toArray());
 
-        $form->setAction(route('files.form', ['id' => $id]));
-        $form->setAutocomplete(false);
-        $form->setMethod('post');
-        $form->setClass(['form-ajax']);
+        $data['form'] = $Form->render();
 
-        $content_id = $form->newElement('input');
-        $content_id->setName('content_id');
-        $content_id->setType('hidden');
-        $content_id->setValue($file->id);
-
-        $form->addElement($content_id);
-
-        $title = $form->newElement('input');
-        $title->setName('title');
-        $title->setType('text');
-        $title->setLabel('Título');
-        $title->setValue($file->title);
-
-        $form->addElement($title);
-
-        $content = $form->newElement('textarea');
-        $content->setName('content');
-        $content->setLabel('Conteúdo');
-        $content->setValue($file->content);
-
-        $form->addElement($content);
-
-        $data['form'] = $form->render($data);
-
-        $response = [
-            'error'   => false,
-            'message' => 'sucesso',
-            'result'  => view('files.form', $data)->render(),
-        ];
-
-        return response()->json($response);
+        return view('console-service::file.form', $data);
     }
 
     public function update(int $id, Request $request)

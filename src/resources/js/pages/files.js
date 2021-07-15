@@ -2,29 +2,13 @@ import axios from 'axios';
 
 const Files = function () {
 
-    const editForm = function () {
+    const form = function () {
+        let element = $(this);
+        let url = element.attr('href');        
 
-        let src = $(this).data('url').split(window.location.origin);
+        new Fancybox([{ src: url, type: "ajax" }]);
 
-        axios.get(src[1], {
-            'baseURL': window.location.origin
-        })
-            .then(function (response) {
-                response = response.data;
-
-                $.fancybox.open({
-                    src: response.result,
-                    type: 'html',
-                    opts: {
-                        modal: true,
-                        closeExisting: true,
-                        afterLoad: function () {
-                            // $(document).on('submit', '.form-ajax', saveForm);
-                            $('.form-ajax').submit(saveForm);
-                        }
-                    }
-                });
-            });
+        return false;
     }
 
     const saveForm = function () {
@@ -88,7 +72,7 @@ const Files = function () {
 
     return {
         init: function () {
-            // $(document).on("click", ".edit-form", editForm);
+            $(document).on("click", ".file .act-form", form);
             $(document).on('click', '.file .act-destroy', destroy);
             $(document).on('click', '.file .act-active', active);
         }

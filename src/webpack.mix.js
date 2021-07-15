@@ -32,7 +32,7 @@ var third_party_assets = {
         { "name": "sortablejs", "assets": ["./node_modules/sortablejs/Sortable.min.js"] },
         { "name": "apexcharts", "assets": ["./node_modules/apexcharts/dist/apexcharts.min.js"] },
         { "name": "parsleyjs", "assets": ["./node_modules/parsleyjs/dist/parsley.min.js"] },
-        { "name": "fancybox", "assets": ["./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js", "./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css"] },
+        { "name": "fancybox", "assets": ["./node_modules/@fancyapps/ui/dist/fancybox.umd.js", "./node_modules/@fancyapps/ui/dist/fancybox.css"] },
         { "name": "summernote", "assets": ["./node_modules/summernote/dist/summernote-bs4.min.js", "./node_modules/summernote/dist/summernote-bs4.css"] },
         { "name": "dropzone", "assets": ["./node_modules/dropzone/dist/min/dropzone.min.js", "./node_modules/dropzone/dist/min/dropzone.min.css"] },
         { "name": "bootstrap-tagsinput", "assets": ["./node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js", "./node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"] },

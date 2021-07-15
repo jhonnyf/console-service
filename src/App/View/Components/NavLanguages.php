@@ -2,6 +2,7 @@
 
 namespace SenventhCode\ConsoleService\App\View\Components;
 
+use App\Models\Language;
 use App\Models\Languages;
 use Illuminate\View\Component;
 
@@ -18,7 +19,7 @@ class NavLanguages extends Component
         $this->route        = $route;
         $this->route_params = $routeParams;
         $this->language_id  = $languageId;
-        $this->languages    = Languages::where('active', '<>', 2);
+        $this->languages    = Language::where('active', '<>', 2);
         $this->class_item   = $classItem;
     }
 

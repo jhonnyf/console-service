@@ -2109,25 +2109,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Files = function () {
-  var editForm = function editForm() {
-    var src = $(this).data('url').split(window.location.origin);
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(src[1], {
-      'baseURL': window.location.origin
-    }).then(function (response) {
-      response = response.data;
-      $.fancybox.open({
-        src: response.result,
-        type: 'html',
-        opts: {
-          modal: true,
-          closeExisting: true,
-          afterLoad: function afterLoad() {
-            // $(document).on('submit', '.form-ajax', saveForm);
-            $('.form-ajax').submit(saveForm);
-          }
-        }
-      });
-    });
+  var form = function form() {
+    var element = $(this);
+    var url = element.attr('href');
+    new Fancybox([{
+      src: url,
+      type: "ajax"
+    }]);
+    return false;
   };
 
   var saveForm = function saveForm() {
@@ -2180,7 +2169,7 @@ var Files = function () {
 
   return {
     init: function init() {
-      // $(document).on("click", ".edit-form", editForm);
+      $(document).on("click", ".file .act-form", form);
       $(document).on('click', '.file .act-destroy', destroy);
       $(document).on('click', '.file .act-active', active);
     }
