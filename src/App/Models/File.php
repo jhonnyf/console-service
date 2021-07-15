@@ -6,22 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-
     protected $fillable = ['file_gallery_id', 'file_path', 'original_name', 'extension', 'size', 'mime_type'];
 
-    public function user()
+    public function contents()
     {
-        return $this->belongsToMany(User::class, 'user_file')->withTimestamps();
-    }
-
-    public function category()
-    {
-        return $this->belongsToMany(Categories::class, 'links_categories_files')->withTimestamps();
-    }
-
-    public function content()
-    {
-        return $this->belongsToMany(Contents::class, 'links_files_contents')->withTimestamps();
+        return $this->belongsToMany(Content::class, 'file_content')
+            ->using(FileContents::class)
+            ->withPivot('language_id')
+            ->withTimestamps();
     }
 
     public function fileGallery()
@@ -29,8 +21,17 @@ class File extends Model
         return $this->belongsTo(FilesGalleries::class);
     }
 
-    // public function contents()
-    // {
-    //     return $this->hasMany(ContentsFiles::class);
-    // }
+    /**
+     *
+     */
+
+    public function userFiles()
+    {
+        return $this->belongsToMany(User::class, 'user_file')->withTimestamps();
+    }
+
+    public function categoryFiles()
+    {
+        return $this->belongsToMany(Categories::class, 'links_categories_files')->withTimestamps();
+    }
 }

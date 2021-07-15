@@ -2,10 +2,12 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
+use App\Models\Content;
 use App\Models\Contents;
 use App\Models\File as Model;
 use App\Models\FileGallery;
 use App\Models\Files;
+use App\Models\Language;
 use App\Models\Languages;
 use App\Models\User;
 use App\Services\FormElement\FormElement;
@@ -55,23 +57,6 @@ class FileController
         return view('console-service::file.list-galleries', $data);
     }
 
-    public function uploadForm(string $module, int $link_id, int $file_gallery_id)
-    {
-        $data = [
-            'module'          => $module,
-            'link_id'         => $link_id,
-            'file_gallery_id' => $file_gallery_id,
-        ];
-
-        $response = [
-            'error'   => false,
-            'message' => 'sucesso',
-            'result'  => view('files.upload-form', $data)->render(),
-        ];
-
-        return response()->json($response);
-    }
-
     public function submitFiles(string $module, int $link_id, int $file_gallery_id, FileUpload $request)
     {
         if ($request->hasFile('file') === false) {
@@ -93,11 +78,11 @@ class FileController
 
         $response = Model::create($data);
 
-        // $this->creteContent($response->id);
+        $this->creteContent($response->id);
 
         $File = Model::find($response->id);
         if ($module === 'user') {
-            $File->user()->attach($link_id);
+            $File->userFiles()->attach($link_id);
         } elseif ($module === 'contents') {
             // $File->contentsFile()->attach($link_id);
         } elseif ($module == 'categories') {
@@ -117,27 +102,14 @@ class FileController
 
     private function creteContent(int $id): void
     {
-        $responseLanguages = Languages::where('active', '<>', 2)
+        $responseLanguages = Language::where('active', '<>', 2)
             ->orderBy('default', 'desc');
 
         if ($responseLanguages->exists()) {
-            $reference_id = null;
+            $File = Model::find($id);
             foreach ($responseLanguages->get() as $language) {
-                $responseContentFile = Files::find($id)->contents()->create();
-
-                $ContentFile = Files::find($id)
-                    ->contents()
-                    ->where('id', $responseContentFile->id)
-                    ->first();
-
-                $ContentFile->language_id = $language->id;
-                if (is_null($reference_id) === false) {
-                    $ContentFile->reference_id = $reference_id;
-                }
-
-                $ContentFile->save();
-
-                $reference_id = $ContentFile->id;
+                $responseContent = Content::create(['title' => ""]);
+                $File->contents()->attach($responseContent->id, ['language_id' => $language->id]);
             }
         }
     }
