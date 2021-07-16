@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2094,99 +2094,55 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./resources/js/pages/files.js":
-/*!*************************************!*\
-  !*** ./resources/js/pages/files.js ***!
-  \*************************************/
-/*! exports provided: Files */
+/***/ "./resources/js/modules/content.js":
+/*!*****************************************!*\
+  !*** ./resources/js/modules/content.js ***!
+  \*****************************************/
+/*! exports provided: Content */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Files", function() { return Files; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var Files = function () {
-  var form = function form() {
+var Content = function () {
+  var navLanguage = function navLanguage() {
     var element = $(this);
     var url = element.attr('href');
-    new Fancybox([{
-      src: url,
-      type: "ajax"
-    }]);
-    return false;
-  };
-
-  var active = function active() {
-    var element = $(this);
-    var url = element.attr('href');
+    url += "&return_json=true";
+    $('.container-content').html('');
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
       var data = response.data;
-
-      if (data.error === false) {
-        var _active = data.result.active === 1 ? '<i data-feather="check-circle"></i>' : '<i data-feather="circle"></i>';
-
-        element.html("").html(_active);
-        feather.replace();
-      }
-    });
-    return false;
-  };
-
-  var destroy = function destroy() {
-    var element = $(this);
-    var file = element.closest('.file');
-    var url = element.attr('href');
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
-      var data = response.data;
-
-      if (data.error === false) {
-        file.slideUp('slow', function () {
-          $(this).remove();
-        });
-      }
+      $('.container-content').html(data.result.html);
     });
     return false;
   };
 
   return {
     init: function init() {
-      $(document).on("click", ".file .act-form", form);
-      $(document).on('click', '.file .act-destroy', destroy);
-      $(document).on('click', '.file .act-active', active);
+      $(document).on("click", ".nav-language", navLanguage);
     }
   };
 }();
 
 
 $(function () {
-  Files.init();
+  Content.init();
 });
-Dropzone.options.uploadConsoleService = {
-  init: function init() {
-    this.on("complete", function (file) {
-      var response = JSON.parse(file.xhr.response);
-
-      if (response.error === false) {
-        $('.files-list .row').append(response.result.html);
-        feather.replace();
-      }
-    });
-  }
-};
 
 /***/ }),
 
-/***/ 1:
-/*!*******************************************!*\
-  !*** multi ./resources/js/pages/files.js ***!
-  \*******************************************/
+/***/ 3:
+/*!***********************************************!*\
+  !*** multi ./resources/js/modules/content.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\wamp64\www\package-development\packages\console-service\src\resources\js\pages\files.js */"./resources/js/pages/files.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\package-development\packages\console-service\src\resources\js\modules\content.js */"./resources/js/modules/content.js");
 
 
 /***/ })

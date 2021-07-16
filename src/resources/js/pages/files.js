@@ -4,30 +4,9 @@ const Files = function () {
 
     const form = function () {
         let element = $(this);
-        let url = element.attr('href');        
-
+        let url = element.attr('href');
+        
         new Fancybox([{ src: url, type: "ajax" }]);
-
-        return false;
-    }
-
-    const saveForm = function () {
-        let element = $(this);
-
-        let src = element.attr('action');
-        let data = element.serialize();
-
-        axios.put(src, data)
-            .then(function (response) {
-                response = response.data;
-
-                element.prepend(response.message);
-                setTimeout(() => {
-                    element.find('.alert').fadeOut(function () {
-                        $(this).remove();
-                    });
-                }, 2000);
-            });
 
         return false;
     }
@@ -41,7 +20,7 @@ const Files = function () {
                 let data = response.data;
 
                 if (data.error === false) {
-                    let active = data.result.active  === 1 ? '<i data-feather="check-circle"></i>' : '<i data-feather="circle"></i>'
+                    let active = data.result.active === 1 ? '<i data-feather="check-circle"></i>' : '<i data-feather="circle"></i>'
 
                     element.html("").html(active);
                     feather.replace();

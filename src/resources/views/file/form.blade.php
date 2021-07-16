@@ -1,7 +1,13 @@
-<div class="row">
-    <div class="col-md-12">
-        <x-console-service-nav-languages :route="$navLanguageRoute" :routeParams="$navLanguageRouteParams" :languageId="$language_id" :classItem="$classItem" />
+@extends('console-service::layouts.modal')
 
-        {!! $form !!} 
-    </div>
-</div>  
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-content">
+                <x-console-service-nav-languages :route="$navLanguageRoute" :routeParams="$navLanguageRouteParams" :languageId="$language_id" :classItem="$classItem" />
+
+                {!! $form !!} 
+            </div>
+        </div>
+    </div>  
+@endsection

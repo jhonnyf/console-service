@@ -129,32 +129,40 @@ class FileController
         $data['language_id']     = $language_id;
         $data['languageDefault'] = $LanguageDefault;
 
-        $fileContent = Model::find($id)->contents()->where('language_id', 1)->first();
+        $fileContent = Model::find($id)->contents()->where('language_id', $language_id)->first();
 
         $Form = new FormGenerator(route('file.update', ['id' => $id]));
         $Form->modelForm(new Content, $fileContent->toArray());
+        $Form->setClass(['form-ajax']);
+
+        $Form->destroyElement('date');
+        $Form->destroyElement('video');
 
         $data['form'] = $Form->render();
+
+        if ($request->return_json) {
+            return response()->json([
+                'error'   => false,
+                'message' => 'Ação realizada com sucesso!',
+                'result'  => [
+                    'html' => view('console-service::file.form', $data)->render()
+                ],
+            ]);
+        }
 
         return view('console-service::file.form', $data);
     }
 
     public function update(int $id, Request $request)
     {
-        $response = Model::find($id)->contents->where('id', $request->content_id)->first()->fill($request->all())->save();
+        $response = Model::find($id)
+            ->contents()->where('id', $request->id)->first()->fill($request->all())->save();
 
-        $data = [
-            'class'   => $response ? 'success' : 'danger',
-            'message' => $response ? 'Ação realizada com sucesso' : 'Não foi possivel realizar a ação',
-        ];
-
-        $response = [
+        return response()->json([
             'error'   => $response,
-            'message' => view('system.alert', $data)->render(),
-            'result'  => Model::with('contents')->find($id),
-        ];
-
-        return response()->json($response);
+            'message' => 'Ação realizada com sucesso!',
+            'result'  => [],
+        ]);
     }
 
     public function active(int $id)

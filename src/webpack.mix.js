@@ -116,9 +116,9 @@ mix.sass('resources/scss/bootstrap.scss', folder.dist_assets + "css").minify(fol
 mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/icons.css");
 
 var app_pages_assets = {
-    js: [        
+    js: [
         folder.src + "js/pages/category.js",
-        folder.src + "js/pages/files.js",        
+        folder.src + "js/pages/files.js",
     ]
 };
 
@@ -126,6 +126,20 @@ var out = folder.dist_assets + "js/";
 lodash(app_pages_assets).forEach(function (assets, type) {
     for (let i = 0; i < assets.length; ++i) {
         mix.js(assets[i], out + "pages");
+    };
+});
+
+var app_pages_assets = {
+    js: [
+        folder.src + "js/modules/form.js",
+        folder.src + "js/modules/content.js",
+    ]
+};
+
+var out = folder.dist_assets + "js/";
+lodash(app_pages_assets).forEach(function (assets, type) {
+    for (let i = 0; i < assets.length; ++i) {
+        mix.js(assets[i], out + "modules");
     };
 });
 

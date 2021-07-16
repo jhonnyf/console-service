@@ -96,7 +96,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         Route::group(['prefix' => 'file'], function () {
 
             Route::get('form/{id}', [FileController::class, 'form'])->name('file.form');
-            Route::get('update/{id}', [FileController::class, 'update'])->name('file.update');
+            Route::post('update/{id}', [FileController::class, 'update'])->name('file.update');
             Route::get('active/{id}', [FileController::class, 'active'])->name('file.active');
             Route::get('destroy/{id}', [FileController::class, 'destroy'])->name('file.destroy');
 

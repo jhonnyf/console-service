@@ -4,23 +4,22 @@ namespace SenventhCode\ConsoleService\App\Services\Metadata\Modules;
 
 use SenventhCode\ConsoleService\App\Services\Metadata\Interfaces\RulesInterface;
 
-abstract class Contents implements RulesInterface
+abstract class Files implements RulesInterface
 {
     public static function tableRules(array $columns): array
     {
-        unset($columns['content']);
-        unset($columns['link']);
-        unset($columns['video']);
+        unset($columns['active']);
+        unset($columns['password']);
+        unset($columns['remember_token']);
+        unset($columns['category_id']);
 
         return $columns;
     }
 
     public static function baseRules(array $columns): array
     {
-        $columns['title']['required'] = true;
-        $columns['slug']['readonly']  = true;
 
-        $columns['content']['elementType'] = 'textarea';
+        unset($columns['slug']);
 
         return $columns;
     }

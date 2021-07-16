@@ -65,4 +65,6 @@
     <script src="{{ URL::asset('console-service/assets/libs/dropzone/dropzone.min.js') }}"></script>
     <script src="{{ URL::asset('console-service/assets/libs/fancybox/fancybox.min.js') }}"></script>
     <script src="{{ URL::asset('console-service/assets/js/pages/files.js') }}"></script>
+    <script src="{{ URL::asset('console-service/assets/js/modules/form.js') }}"></script>
+    <script src="{{ URL::asset('console-service/assets/js/modules/content.js') }}"></script>
 @endsection
