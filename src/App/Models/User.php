@@ -24,4 +24,38 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(File::class, 'user_file');
     }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
+    public function setDocumentAttribute($value)
+    {
+        $value = str_replace('-', '', $value);
+        $value = str_replace('.', '', $value);
+        $value = str_replace(' ', '', $value);
+
+        $this->attributes['document'] = $value;
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $value = str_replace('-', '', $value);
+        $value = str_replace(')', '', $value);
+        $value = str_replace('(', '', $value);
+        $value = str_replace(' ', '', $value);
+
+        $this->attributes['phone'] = $value;
+    }
+
+    public function setCellphoneAttribute($value)
+    {
+        $value = str_replace('-', '', $value);
+        $value = str_replace(')', '', $value);
+        $value = str_replace('(', '', $value);
+        $value = str_replace(' ', '', $value);
+
+        $this->attributes['cellphone'] = $value;
+    }
 }
