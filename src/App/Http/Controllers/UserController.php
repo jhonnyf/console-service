@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use SenventhCode\ConsoleService\App\Http\Requests\Password;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersAddressStore;
+use SenventhCode\ConsoleService\App\Http\Requests\UsersAddressUpdate;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersStore;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersUpdate;
 use SenventhCode\FormGenerator\FormGenerator;
@@ -69,7 +70,7 @@ class UserController extends MainController
      * ADDRESS
      */
 
-    public function address(int $id, Request $request)
+    public function address(int $id, int $address_id = null, Request $request)
     {
         $data = [
             'id'    => $id,
@@ -84,17 +85,33 @@ class UserController extends MainController
             $data              = array_merge($data, $setData);
         }
 
-        $Form = new FormGenerator(route('user.address-store', ['id' => $id]));
-        $Form->modelForm(new UserAddress, []);
+        $data['addresses'] = Model::find($id)->addresses;
+
+        $valuesForm = [];
+        if (is_null($address_id) === false) {
+            $valuesForm = $data['addresses']->where('id' , $address_id)->first()->toArray();
+        }
+
+        $routeForm = is_null($address_id) ? route('user.address-store', ['id' => $id]) : route('user.address-update', ['id' => $id]); 
+
+        $Form = new FormGenerator($routeForm);
+        $Form->modelForm(new UserAddress, $valuesForm);
 
         $data['form'] = $Form->render();
 
-        return view('console-service::module-base.form', $data);
+        return view('console-service::user.address', $data);
     }
 
     public function addressStore(int $id, UsersAddressStore $request)
     {
         Model::find($id)->addresses()->create($request->all());
+
+        return redirect()->route('user.address', ['id' => $id]);
+    }
+
+    public function addressUpdate(int $id, UsersAddressUpdate $request)
+    {
+        Model::find($id)->addresses()->where('id', $request->id)->first()->fill($request->all())->save();
 
         return redirect()->route('user.address', ['id' => $id]);
     }

@@ -33,8 +33,9 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         Route::group(['prefix' => 'user'], function () {
 
             Route::group(['prefix' => 'address'], function () {
-                Route::get('{id}', [UserController::class, 'address'])->name('user.address');
+                Route::get('{id}/{address_id?}', [UserController::class, 'address'])->name('user.address');
                 Route::post('store/{id}', [UserController::class, 'addressStore'])->name('user.address-store');
+                Route::post('update/{id}', [UserController::class, 'addressUpdate'])->name('user.address-update');
             });
 
             Route::group(['prefix' => 'category'], function () {
