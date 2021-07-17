@@ -32,6 +32,11 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
 
         Route::group(['prefix' => 'user'], function () {
 
+            Route::group(['prefix' => 'address'], function () {
+                Route::get('{id}', [UserController::class, 'address'])->name('user.address');
+                Route::post('store/{id}', [UserController::class, 'addressStore'])->name('user.address-store');
+            });
+
             Route::group(['prefix' => 'category'], function () {
                 Route::get('{id}', [UserController::class, 'category'])->name('user.category');
                 Route::post('store/{id}', [UserController::class, 'categoryStore'])->name('user.category-store');
@@ -103,7 +108,6 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
             Route::post('submit/{module}/{link_id}/{file_gallery_id}', [FileController::class, 'submitFiles'])->name('file.upload-submit');
 
             Route::get('{module}/{link_id}', [FileController::class, 'listGalleries'])->name('file.list-galleries');
-            
 
         });
     });

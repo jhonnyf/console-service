@@ -15,7 +15,7 @@ class CreateUsersAddresses extends Migration
             $table->id();
             $table->integer('active')->default(1);
             $table->unsignedBigInteger('user_id');
-            $table->string('zipcode', 256);
+            $table->string('zipcode', 10);
             $table->string('address', 256);
             $table->integer('number');
             $table->string('complement', 256);

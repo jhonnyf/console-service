@@ -3,10 +3,12 @@
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\UserAddress;
 use App\Models\User as Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use SenventhCode\ConsoleService\App\Http\Requests\Password;
+use SenventhCode\ConsoleService\App\Http\Requests\UsersAddressStore;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersStore;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersUpdate;
 use SenventhCode\FormGenerator\FormGenerator;
@@ -61,6 +63,40 @@ class UserController extends MainController
         $User->category()->associate($category_id)->save();
 
         return;
+    }
+
+    /**
+     * ADDRESS
+     */
+
+    public function address(int $id, Request $request)
+    {
+        $data = [
+            'id'    => $id,
+            'route' => $this->Route,
+            'name'  => $this->Name,
+            'nav'   => $this->setNav($request, $id),
+        ];
+
+        $setData = $this->setData($request);
+        if (count($setData) > 0) {
+            $data['extraData'] = $setData;
+            $data              = array_merge($data, $setData);
+        }
+
+        $Form = new FormGenerator(route('user.address-store', ['id' => $id]));
+        $Form->modelForm(new UserAddress, []);
+
+        $data['form'] = $Form->render();
+
+        return view('console-service::module-base.form', $data);
+    }
+
+    public function addressStore(int $id, UsersAddressStore $request)
+    {
+        Model::find($id)->addresses()->create($request->all());
+
+        return redirect()->route('user.address', ['id' => $id]);
     }
 
     /**

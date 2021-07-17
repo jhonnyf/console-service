@@ -25,6 +25,11 @@ class User extends Authenticatable
         return $this->belongsToMany(File::class, 'user_file');
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
     /**
      * Mutators
      */
