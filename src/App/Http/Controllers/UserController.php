@@ -5,6 +5,7 @@ namespace SenventhCode\ConsoleService\App\Http\Controllers;
 use App\Models\Category;
 use App\Models\UserAddress;
 use App\Models\User as Model;
+use App\Models\UserExtension;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use SenventhCode\ConsoleService\App\Http\Requests\Password;
@@ -124,6 +125,43 @@ class UserController extends MainController
         $User->addresses()->where('id', $address_id)->update(['active' => 2]);
 
         return redirect()->route('user.address', ['id' => $id, 'category_id' => $User->category_id]);
+    }
+
+    /**
+     * EXTENSION
+     */
+
+    public function extension(int $id, Request $request)
+    {
+        $data = [
+            'id'    => $id,
+            'route' => $this->Route,
+            'name'  => $this->Name,
+            'nav'   => $this->setNav($request, $id),
+        ];
+
+        $setData = $this->setData($request);
+        if (count($setData) > 0) {
+            $data['extraData'] = $setData;
+            $data              = array_merge($data, $setData);
+        }
+
+        $valuesForm = Model::find($id)->extension->toArray();
+
+        $Form = new FormGenerator(route('user.extension-update', ['id' => $id]));
+        $Form->modelForm(new UserExtension, $valuesForm);
+
+        $data['form'] = $Form->render();
+
+        return view('console-service::module-base.form', $data);
+    }
+
+    public function extensionUpdate(int $id, Request $request)
+    {
+        $User = Model::find($id);
+        $User->extension->fill($request->all())->save();
+
+        return redirect()->route('user.extension', ['id' => $id, 'category_id' => $User->category_id]);
     }
 
     /**

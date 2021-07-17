@@ -38,6 +38,11 @@ class UserModuleConfig extends AbstractModuleConfig
         if (is_null($id) === false) {
 
             $response[] = [
+                'name'  => 'Extensão',
+                'route' => route('user.extension', ['id' => $id, 'category_id' => $request->category_id]),
+            ];
+            
+            $response[] = [
                 'name'  => 'Endereços',
                 'route' => route('user.address', ['id' => $id, 'category_id' => $request->category_id]),
             ];

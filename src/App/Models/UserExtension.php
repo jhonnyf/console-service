@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserExtension extends Model
 {
+    protected $table      = 'users_extensions';
     protected $primaryKey = 'user_id';
     protected $fillable   = [];
 

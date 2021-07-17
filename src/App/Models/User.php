@@ -72,4 +72,15 @@ class User extends Authenticatable
 
         $this->attributes['cellphone'] = $value;
     }
+
+    /**
+     * EVENT
+     */
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->extension()->create([]);
+        });
+    }
 }
