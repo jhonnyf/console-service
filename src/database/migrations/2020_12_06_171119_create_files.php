@@ -22,7 +22,7 @@ class CreateFiles extends Migration
             $table->string('mime_type', 100);
             $table->timestamps();
 
-            $table->foreign('file_gallery_id')->references('id')->on('files_galleries');
+            $table->foreign('file_gallery_id')->references('id')->on('files_galleries')->cascadeOnDelete();
         });
     }
 

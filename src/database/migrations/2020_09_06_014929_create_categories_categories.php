@@ -18,8 +18,8 @@ class CreateCategoriesCategories extends Migration
 
             $table->primary(['primary_id', 'secondary_id']);
 
-            $table->foreign('primary_id')->references('id')->on('categories');
-            $table->foreign('secondary_id')->references('id')->on('categories');
+            $table->foreign('primary_id')->references('id')->on('categories')->cascadeOnDelete();
+            $table->foreign('secondary_id')->references('id')->on('categories')->cascadeOnDelete();
         });
     }
 

@@ -20,9 +20,9 @@ class CreateCategoriesContents extends Migration
             $table->primary(['category_id', 'content_id', 'language_id']);
             // $table->primary(['category_id', 'content_id']);
 
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('content_id')->references('id')->on('contents');
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
+            $table->foreign('content_id')->references('id')->on('contents')->cascadeOnDelete();
+            $table->foreign('language_id')->references('id')->on('languages')->cascadeOnDelete();
         });
     }
 

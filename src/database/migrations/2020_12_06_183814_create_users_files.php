@@ -18,8 +18,8 @@ class CreateUsersFiles extends Migration
 
             $table->primary(['file_id', 'user_id']);
 
-            $table->foreign('file_id')->references('id')->on('files');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('file_id')->references('id')->on('files')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

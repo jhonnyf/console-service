@@ -19,9 +19,9 @@ class CreateFileContent extends Migration
 
             $table->primary(['file_id', 'content_id', 'language_id']);
 
-            $table->foreign('file_id')->references('id')->on('files');
-            $table->foreign('content_id')->references('id')->on('contents');
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('file_id')->references('id')->on('files')->cascadeOnDelete();
+            $table->foreign('content_id')->references('id')->on('contents')->cascadeOnDelete();
+            $table->foreign('language_id')->references('id')->on('languages')->cascadeOnDelete();
         });
     }
 
