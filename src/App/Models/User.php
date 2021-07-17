@@ -30,6 +30,11 @@ class User extends Authenticatable
         return $this->hasMany(UserAddress::class)->where('active', '<>', 2);
     }
 
+    public function extension()
+    {
+        return $this->hasOne(UserExtension::class);
+    }
+
     /**
      * Mutators
      */
