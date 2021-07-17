@@ -36,6 +36,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
                 Route::get('{id}/{address_id?}', [UserController::class, 'address'])->name('user.address');
                 Route::post('store/{id}', [UserController::class, 'addressStore'])->name('user.address-store');
                 Route::post('update/{id}', [UserController::class, 'addressUpdate'])->name('user.address-update');
+                Route::get('destroy/{id}/{address_id}', [UserController::class, 'addressDestroy'])->name('user.address-destroy');
             });
 
             Route::group(['prefix' => 'category'], function () {

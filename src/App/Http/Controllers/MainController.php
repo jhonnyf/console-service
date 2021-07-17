@@ -91,7 +91,13 @@ abstract class MainController extends BaseController
         $setData       = $this->setData($request);
         if (count($setData) > 0) {
             foreach ($setData as $key => $value) {
-                $FormGenerator->input($key)->setValue($value)->setType('hidden');
+
+                $input = $FormGenerator->input($key)
+                    ->setType('hidden');
+
+                if (empty($value) == false) {
+                    $input->setValue($value);
+                }
             }
         }
 

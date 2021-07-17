@@ -18,25 +18,28 @@
             </div>
         </div>
         <div class="col-md-10">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        @foreach ($addresses as $address)
-                            <div class="col-md-3 address">
-                                {{ $address->zipcode }} <br>
-                                {{ $address->address }}, {{ $address->number }} {{ $address->complement }} <br>
-                                {{ $address->district }}, {{ $address->city }} - {{ $address->state }} <br>
-                                {{ $address->country }}
 
-                                <div class="d-flex mt-3">
-                                    <a href="{{ route('user.address', ['id' => $id, 'address_id' => $address->id]) }}" class="mr-3"><i data-feather="edit-2" class="icon-sm"></i></a>
-                                    <a href="{{ route('user.address', ['id' => $id, 'address_id' => $address->id]) }}"><i data-feather="trash-2" class="icon-sm"></i></a>
+            @if (count($addresses) > 0)                        
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach ($addresses as $address)
+                                <div class="col-md-3 address">
+                                    {{ $address->zipcode }} <br>
+                                    {{ $address->address }}, {{ $address->number }} {{ $address->complement }} <br>
+                                    {{ $address->district }}, {{ $address->city }} - {{ $address->state }} <br>
+                                    {{ $address->country }}
+
+                                    <div class="d-flex mt-3">
+                                        <a href="{{ route('user.address', ['id' => $id, 'address_id' => $address->id, 'category_id' => request()->get('category_id')]) }}" class="mr-3"><i data-feather="edit-2" class="icon-sm"></i></a>
+                                        <a href="{{ route('user.address-destroy', ['id' => $id, 'address_id' => $address->id, 'category_id' => request()->get('category_id')]) }}"><i data-feather="trash-2" class="icon-sm"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             <div class="card">
                 <div class="card-body">                           

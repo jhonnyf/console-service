@@ -89,10 +89,10 @@ class UserController extends MainController
 
         $valuesForm = [];
         if (is_null($address_id) === false) {
-            $valuesForm = $data['addresses']->where('id' , $address_id)->first()->toArray();
+            $valuesForm = $data['addresses']->where('id', $address_id)->first()->toArray();
         }
 
-        $routeForm = is_null($address_id) ? route('user.address-store', ['id' => $id]) : route('user.address-update', ['id' => $id]); 
+        $routeForm = is_null($address_id) ? route('user.address-store', ['id' => $id]) : route('user.address-update', ['id' => $id]);
 
         $Form = new FormGenerator($routeForm);
         $Form->modelForm(new UserAddress, $valuesForm);
@@ -104,16 +104,26 @@ class UserController extends MainController
 
     public function addressStore(int $id, UsersAddressStore $request)
     {
-        Model::find($id)->addresses()->create($request->all());
+        $User = Model::find($id);
+        $User->addresses()->create($request->all());
 
-        return redirect()->route('user.address', ['id' => $id]);
+        return redirect()->route('user.address', ['id' => $id, 'category_id' => $User->category_id]);
     }
 
     public function addressUpdate(int $id, UsersAddressUpdate $request)
     {
-        Model::find($id)->addresses()->where('id', $request->id)->first()->fill($request->all())->save();
+        $User = Model::find($id);
+        $User->addresses()->where('id', $request->id)->first()->fill($request->all())->save();
 
-        return redirect()->route('user.address', ['id' => $id]);
+        return redirect()->route('user.address', ['id' => $id, 'category_id' => $User->category_id]);
+    }
+
+    public function addressDestroy(int $id, int $address_id)
+    {
+        $User = Model::find($id);
+        $User->addresses()->where('id', $address_id)->update(['active' => 2]);
+
+        return redirect()->route('user.address', ['id' => $id, 'category_id' => $User->category_id]);
     }
 
     /**

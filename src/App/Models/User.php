@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     public function addresses()
     {
-        return $this->hasMany(UserAddress::class);
+        return $this->hasMany(UserAddress::class)->where('active', '<>', 2);
     }
 
     /**

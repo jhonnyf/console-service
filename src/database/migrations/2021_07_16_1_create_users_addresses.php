@@ -16,13 +16,13 @@ class CreateUsersAddresses extends Migration
             $table->integer('active')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->string('zipcode', 10);
-            $table->string('address', 256);
+            $table->string('address', 256)->nullable();
             $table->integer('number');
-            $table->string('complement', 256);
-            $table->string('district', 256);
-            $table->string('city', 256);
-            $table->string('state', 256);
-            $table->string('country', 256);
+            $table->string('complement', 256)->nullable();
+            $table->string('district', 256)->nullable();
+            $table->string('city', 256)->nullable();
+            $table->string('state', 256)->nullable();
+            $table->string('country', 256)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
