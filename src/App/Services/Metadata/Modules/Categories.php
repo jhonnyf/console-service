@@ -1,6 +1,6 @@
 <?php
 
-namespace SenventhCode\ConsoleService\App\Services\Metadata;
+namespace SenventhCode\ConsoleService\App\Services\Metadata\Modules;
 
 use SenventhCode\ConsoleService\App\Services\Metadata\Interfaces\RulesInterface;
 

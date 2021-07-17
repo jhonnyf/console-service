@@ -25,6 +25,10 @@ class User extends Authenticatable
         return $this->belongsToMany(File::class, 'user_file');
     }
 
+    /**
+     * Mutators
+     */
+
     public function setEmailAttribute($value)
     {
         $this->attributes['email'] = strtolower($value);
