@@ -17,7 +17,7 @@ use SenventhCode\ConsoleService\App\Http\Controllers\UserController;
 |
  */
 
-Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
+Route::group(['middleware' => 'console-service', 'prefix' => 'console'], function () {
 
     Route::get('login', [LoginController::class, 'index'])->name('login.index');
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');

@@ -10,13 +10,13 @@ class LoginController extends MainController
 {
 
     public function index(Request $request)
-    {        
+    {
         return view('console-service::login.index');
     }
 
     public function authenticate(Login $request)
     {
-        if (Auth::attempt($request->only(['email', 'password']), true) === false) {
+        if (Auth::guard('console-service')->attempt($request->only(['email', 'password']), true) === false) {
             return redirect()->route('login.index');
         }
 
@@ -25,7 +25,7 @@ class LoginController extends MainController
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('console-service')->logout();
 
         return redirect()->route('login.index');
     }
