@@ -17,13 +17,13 @@ use SenventhCode\ConsoleService\App\Http\Controllers\UserController;
 |
  */
 
-Route::group(['middleware' => 'console-service', 'prefix' => 'console'], function () {
+Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
 
     Route::get('login', [LoginController::class, 'index'])->name('login.index');
     Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
     Route::post('authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth:console-service'], function () {
         Route::get('', function () {
             return redirect()->route('dashboard');
         });
@@ -32,7 +32,7 @@ Route::group(['middleware' => 'console-service', 'prefix' => 'console'], functio
 
         Route::group(['prefix' => 'user'], function () {
 
-            Route::group(["prefix" => 'extension'], function (){
+            Route::group(["prefix" => 'extension'], function () {
                 Route::get('{id}', [UserController::class, 'extension'])->name('user.extension');
                 Route::post('update/{id}', [UserController::class, 'extensionUpdate'])->name('user.extension-update');
             });
@@ -118,5 +118,4 @@ Route::group(['middleware' => 'console-service', 'prefix' => 'console'], functio
 
         });
     });
-
 });
