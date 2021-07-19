@@ -54,6 +54,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
                 Route::post('store/{id}', [UserController::class, 'passwordStore'])->name('user.password-store');
             });
 
+            Route::get('export', [UserController::class, 'export'])->name('user.export');
             Route::get('', [UserController::class, 'index'])->name('user.index');
             Route::get('form/{id?}', [UserController::class, 'form'])->name('user.form');
             Route::post('form', [UserController::class, 'store'])->name('user.store');

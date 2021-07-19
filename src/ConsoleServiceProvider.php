@@ -46,6 +46,7 @@ class ConsoleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/database/seeders' => database_path('migrations/../seeders'),
             __DIR__ . '/App/Models'       => database_path('migrations/../../App/Models'),
+            __DIR__ . '/App/Exports'       => database_path('migrations/../../App/Exports'),
         ], 'migrations');
 
     }

@@ -6,13 +6,41 @@ use SenventhCode\ConsoleService\App\Services\Metadata\Interfaces\RulesInterface;
 
 abstract class Users implements RulesInterface
 {
+    public static $tableExport = ['users_extensions', 'users_addresses'];
+
     public static function tableRules(array $columns): array
     {
         unset($columns['active']);
         unset($columns['password']);
         unset($columns['remember_token']);
-        unset($columns['category_id']);        
+        unset($columns['category_id']);
 
+        return $columns;
+    }
+
+    public static function getTableExport()
+    {
+        return static::$tableExport;
+    }
+
+    public static function tableExport(array $columns)
+    {
+        unset($columns['users']['active']);
+        unset($columns['users']['password']);
+        unset($columns['users']['remember_token']);
+        unset($columns['users']['category_id']);
+        unset($columns['users']['updated_at']);
+        
+        unset($columns['users_addresses']['id']);
+        unset($columns['users_addresses']['active']);
+        unset($columns['users_addresses']['user_id']);
+        unset($columns['users_addresses']['created_at']);
+        unset($columns['users_addresses']['updated_at']);
+
+        unset($columns['users_extensions']['user_id']);
+        unset($columns['users_extensions']['created_at']);
+        unset($columns['users_extensions']['updated_at']);
+        
         return $columns;
     }
 

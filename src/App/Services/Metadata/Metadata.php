@@ -13,9 +13,23 @@ class Metadata
         $className = static::createNameClass($tableName);
 
         $pathClass = static::checkClass($className);
-        $fields    = $pathClass::tableRules($columns);
+        return $pathClass::tableRules($columns);
+    }
 
-        return $fields;
+    public static function tableExport(string $tableName, array $extraTables = [])
+    {
+        $columns[$tableName] = static::tableMetadata($tableName);
+        $className           = static::createNameClass($tableName);
+
+        $pathClass   = static::checkClass($className);
+        $extraTables = $pathClass::getTableExport();
+        if (count($extraTables) > 0) {
+            foreach ($extraTables as $table) {
+                $columns[$table] = static::tableMetadata($table);
+            }
+        }
+
+        return $pathClass::tableExport($columns);
     }
 
     private static function tableMetadata(string $table): array

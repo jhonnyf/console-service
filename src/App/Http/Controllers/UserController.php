@@ -2,12 +2,14 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\Category;
 use App\Models\UserAddress;
 use App\Models\User as Model;
 use App\Models\UserExtension;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use SenventhCode\ConsoleService\App\Http\Requests\Password;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersAddressStore;
 use SenventhCode\ConsoleService\App\Http\Requests\UsersAddressUpdate;
@@ -250,5 +252,14 @@ class UserController extends MainController
         $request->session()->flash('success', 'Ação realizada com sucesso!');
 
         return redirect()->route("{$this->Route}.password", ['id' => $id, 'category_id' => $request->category_id]);
+    }
+
+    /**
+     * EXPORT
+     */
+
+    public function export(Request $request)
+    {
+        return Excel::download(new UsersExport($request->category_id), 'users.xlsx');
     }
 }
