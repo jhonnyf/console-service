@@ -9,7 +9,7 @@ use SenventhCode\ConsoleService\App\Http\Requests\FileUpload;
 
 class Upload
 {
-    public function uploadFIle(string $module, int $link_id, int $file_gallery_id, FileUpload $request): File
+    public function uploadFIle(string $module, int $link_id, int $file_gallery_id, FileUpload $request, string $fileName = ''): File
     {
         $file = $request->file('file');
 
@@ -21,7 +21,12 @@ class Upload
             'mime_type'       => $file->getMimeType(),
         ];
 
-        $data['file_path'] = $request->file->store("public/{$module}");
+        if (empty($fileName)) {
+            $data['file_path'] = $request->file->store("public/{$module}");
+        } else {
+            $data['file_path'] = $request->file->storeAs("public/{$module}", $fileName);
+        }
+
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
 
         $response = File::create($data);
