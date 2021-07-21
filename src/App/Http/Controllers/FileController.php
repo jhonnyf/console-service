@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use SenventhCode\ConsoleService\App\Http\Requests\FileUpload;
+use SenventhCode\ConsoleService\App\Services\Upload;
 use SenventhCode\FormGenerator\FormGenerator;
 
 class FileController
@@ -60,33 +61,8 @@ class FileController
             return response()->isInvalid();
         }
 
-        $file = $request->file('file');
-
-        $data = [
-            'file_gallery_id' => $file_gallery_id,
-            'original_name'   => $file->getClientOriginalName(),
-            'extension'       => $file->getClientOriginalExtension(),
-            'size'            => round($file->getSize() / 1024 / 1024, 4),
-            'mime_type'       => $file->getMimeType(),
-        ];
-
-        $data['file_path'] = $request->file->store("public/{$module}");
-        $data['file_path'] = str_replace("public/", "", $data['file_path']);
-
-        $response = Model::create($data);
-
-        $this->creteContent($response->id);
-
-        $File = Model::find($response->id);
-        if ($module === 'user') {
-            $File->userFiles()->attach($link_id);
-        } elseif ($module === 'contents') {
-            // $File->contentsFile()->attach($link_id);
-        } elseif ($module == 'categories') {
-            // $File->categoriesFile()->attach($link_id);
-        } elseif ($module == 'products') {
-            // $File->productsFile()->attach($link_id);
-        }
+        $Upload = new Upload;
+        $File   = $Upload->uploadFIle($module, $link_id, $file_gallery_id, $request);
 
         return response()->json([
             'error'   => false,
@@ -95,20 +71,6 @@ class FileController
                 'html' => view('console-service::components.file-item', ['file' => $File])->render(),
             ],
         ]);
-    }
-
-    private function creteContent(int $id): void
-    {
-        $responseLanguages = Language::where('active', '<>', 2)
-            ->orderBy('default', 'desc');
-
-        if ($responseLanguages->exists()) {
-            $File = Model::find($id);
-            foreach ($responseLanguages->get() as $language) {
-                $responseContent = Content::create(['title' => ""]);
-                $File->contents()->attach($responseContent->id, ['language_id' => $language->id]);
-            }
-        }
     }
 
     public function form(int $id, Request $request)
@@ -145,7 +107,7 @@ class FileController
                 'error'   => false,
                 'message' => 'Ação realizada com sucesso!',
                 'result'  => [
-                    'html' => view('console-service::file.form', $data)->render()
+                    'html' => view('console-service::file.form', $data)->render(),
                 ],
             ]);
         }
