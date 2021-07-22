@@ -24,7 +24,7 @@ class Upload
         if (empty($fileName)) {
             $data['file_path'] = $request->file->store("public/{$module}");
         } else {
-            $data['file_path'] = $request->file->storeAs("public/{$module}", $fileName);
+            $data['file_path'] = $request->file->storeAs("public/{$module}", "{$fileName}.{$data['extension']}");
         }
 
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
