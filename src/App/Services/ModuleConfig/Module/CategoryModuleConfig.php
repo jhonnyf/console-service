@@ -5,9 +5,9 @@ namespace SenventhCode\ConsoleService\App\Services\ModuleConfig\Module;
 use Illuminate\Http\Request;
 use SenventhCode\ConsoleService\App\Services\ModuleConfig\AbstractModuleConfig;
 
-class CategoriesModuleConfig extends AbstractModuleConfig
+class CategoryModuleConfig extends AbstractModuleConfig
 {
-    public $Route     = 'categories';
+    public $Route     = 'category';
     public $TableName = 'categories';
     public $Name      = 'Categoria';
 
@@ -20,19 +20,19 @@ class CategoriesModuleConfig extends AbstractModuleConfig
     {
         $response[] = [
             'name'  => 'Principal',
-            'route' => route('categories.form', ['id' => $id, 'category_id' => $request->category_id]),
+            'route' => route('category.form', ['id' => $id, 'category_id' => $request->category_id]),
         ];
 
         if (is_null($id) === false) {
 
             $response[] = [
                 'name'  => 'Conteúdo',
-                'route' => route('categories.content', ['id' => $id, 'category_id' => $request->category_id]),
+                'route' => route('category.content', ['id' => $id, 'category_id' => $request->category_id]),
             ];
 
             $response[] = [
                 'name'  => 'Arquivos',
-                'route' => route('files.listGalleries', ['module' => 'categories', 'link_id' => $id, 'category_id' => $request->category_id]),
+                'route' => route('file.list-galleries', ['module' => 'categories', 'link_id' => $id, 'category_id' => $request->category_id]),
             ];
 
         }

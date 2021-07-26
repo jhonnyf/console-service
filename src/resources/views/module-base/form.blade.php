@@ -5,7 +5,7 @@
 @endsection
 
 @section('nav')
-    
+
 @endsection
 
 @section('content')
@@ -19,7 +19,11 @@
         </div>
         <div class="col-md-10">
             <div class="card">
-                <div class="card-body">                           
+                <div class="card-body">
+                    @if ($enableLanguages)
+                        <x-console-service-nav-languages :route="$navLanguageRoute" :routeParams="$navLanguageRouteParams" :languageId="$language_id" :classItem="$classItem" />    
+                    @endif                    
+
                     {!! $form !!}
                 </div>
             </div>

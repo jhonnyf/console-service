@@ -2,6 +2,7 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
+use App\Models\Language;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -20,6 +21,7 @@ abstract class MainController extends BaseController
     protected $Route;
     protected $TableName;
     protected $Name;
+    protected $EnableLanguages = false;
 
     public function __construct($Model = null)
     {
@@ -78,13 +80,26 @@ abstract class MainController extends BaseController
     public function form(int $id = null, Request $request)
     {
         $data = [
-            'id'    => $id,
-            'route' => $this->Route,
-            'name'  => $this->Name,
-            'nav'   => $this->setNav($request, $id),
+            'id'                     => $id,
+            'route'                  => $this->Route,
+            'name'                   => $this->Name,
+            'nav'                    => $this->setNav($request, $id),
+            'navLanguageRoute'       => "{$this->Route}.form",
+            'navLanguageRouteParams' => ['id' => $id],
+            'classItem'              => [],
+            'enableLanguages'        => $this->EnableLanguages,
         ];
 
+        $LanguageDefault = Language::where('default', true)->first();
+
+        $language_id             = isset($request->language_id) ? $request->language_id : $LanguageDefault->id;
+        $data['language_id']     = $language_id;
+        $data['languageDefault'] = $LanguageDefault;
+
         $formValues = $this->Model->find($id);
+        if (isset($request->language_id)) {
+            
+        }
         $formValues = $formValues ? $formValues->toArray() : [];
 
         $routeFrom = is_null($id) ? route("{$this->Route}.store", ['id' => $id]) : route("{$this->Route}.update", ['id' => $id]);
@@ -147,6 +162,9 @@ abstract class MainController extends BaseController
         $this->Route     = $ModuleConfig->Route;
         $this->TableName = $ModuleConfig->TableName;
         $this->Name      = $ModuleConfig->Name;
+        if (isset($ModuleConfig->EnableLanguages)) {
+            $this->EnableLanguages = $ModuleConfig->EnableLanguages;
+        }
     }
 
     protected function setData(Request $request): array
@@ -164,7 +182,7 @@ abstract class MainController extends BaseController
     }
 
     protected function setNav(Request $request, int $id = null): array
-    {        
+    {
         $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
 
         return $ModuleConfig->setNav($request, $id);

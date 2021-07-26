@@ -14,6 +14,14 @@ class Content extends Model
         $this->attributes['slug']  = \Illuminate\Support\Str::slug($value, '-');
     }
 
+    public function contentLanguage()
+    {
+        return $this->belongsToMany(Content::class, 'file_content')
+            ->using(FileContents::class)
+            ->withPivot('language_id')
+            ->withTimestamps();
+    }
+
     public function files()
     {
         return $this->belongsToMany(File::class, 'content_file');

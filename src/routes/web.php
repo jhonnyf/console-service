@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use SenventhCode\ConsoleService\App\Http\Controllers\CategoryController;
 use SenventhCode\ConsoleService\App\Http\Controllers\ContentsController;
 use SenventhCode\ConsoleService\App\Http\Controllers\DashboardController;
 use SenventhCode\ConsoleService\App\Http\Controllers\FileController;
@@ -65,19 +66,19 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         });
 
         Route::group(['prefix' => 'category'], function () {
-            Route::get('show/{id}', 'CategoriesController@show')->name('category.show');
-            Route::post('structure', 'CategoriesController@structure')->name('category.structure');
-            Route::get('form/{id?}', 'CategoriesController@form')->name('category.form');
-            Route::get('active/{id}', 'CategoriesController@active')->name('category.active');
-            Route::get('destroy/{id}', 'CategoriesController@destroy')->name('category.destroy');
-            Route::get('', 'CategoriesController@index')->name('category.index');
-            Route::post('', 'CategoriesController@store')->name('category.store');
-            Route::put('{id}', 'CategoriesController@update')->name('category.update');
-
             Route::group(['prefix' => 'content'], function () {
                 Route::get('{id}', 'CategoriesController@content')->name('category.content');
                 Route::post('{id}', 'CategoriesController@contentUpdate')->name('category.content-update');
             });
+
+            Route::get('show/{id}', [CategoryController::class, 'show'])->name('category.show');
+            Route::post('structure', [CategoryController::class, 'structure'])->name('category.structure');
+            Route::get('form/{id?}', [CategoryController::class, 'form'])->name('category.form');
+            Route::get('active/{id}', [CategoryController::class, 'active'])->name('category.active');
+            Route::get('destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+            Route::get('', [CategoryController::class, 'index'])->name('category.index');
+            Route::post('', [CategoryController::class, 'store'])->name('category.store');
+            Route::put('{id}', [CategoryController::class, 'update'])->name('category.update');  
         });
 
         Route::group(['prefix' => 'content'], function () {

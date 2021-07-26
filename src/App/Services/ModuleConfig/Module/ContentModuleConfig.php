@@ -8,9 +8,10 @@ use SenventhCode\ConsoleService\App\Services\ModuleConfig\AbstractModuleConfig;
 
 class ContentModuleConfig extends AbstractModuleConfig
 {
-    public $Route     = 'content';
-    public $TableName = 'contents';
-    public $Name      = 'Conteúdo';
+    public $Route           = 'content';
+    public $TableName       = 'contents';
+    public $Name            = 'Conteúdo';
+    public $EnableLanguages = true;
 
     public function setData(Request $request): array
     {
