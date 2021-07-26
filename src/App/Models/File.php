@@ -29,6 +29,11 @@ class File extends Model
     {
         return $this->belongsToMany(User::class, 'user_file')->withTimestamps();
     }
+    
+    public function contentFiles()
+    {
+        return $this->belongsToMany(Content::class, 'content_file')->withTimestamps();
+    }
 
     public function categoryFiles()
     {

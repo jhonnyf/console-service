@@ -41,10 +41,12 @@ class FileController
                     ->where('active', '<>', 2)
                     ->where('file_gallery_id', $data['file_gallery_id'])
                     ->get();
-            } elseif ($module == 'contents') {
-                // $data['entity'] = Contents::find($link_id)
-                //     ->files()
-                //     ->where('active', '<>', 2);
+            } elseif ($module == 'content') {
+                $data['files'] = Content::find($link_id)
+                    ->files()
+                    ->where('active', '<>', 2)
+                    ->where('file_gallery_id', $data['file_gallery_id'])
+                    ->get();
             } elseif ($module == 'categories') {
                 // $data['entity'] = Categories::find($link_id)
                 //     ->files()

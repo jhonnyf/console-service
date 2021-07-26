@@ -2,13 +2,13 @@
 
 namespace SenventhCode\ConsoleService\App\Services\ModuleConfig\Module;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use SenventhCode\ConsoleService\App\Services\ModuleConfig\AbstractModuleConfig;
 
-class ContentsModuleConfig extends AbstractModuleConfig
+class ContentModuleConfig extends AbstractModuleConfig
 {
-    public $Route     = 'contents';
+    public $Route     = 'content';
     public $TableName = 'contents';
     public $Name      = 'Conteúdo';
 
@@ -19,8 +19,8 @@ class ContentsModuleConfig extends AbstractModuleConfig
 
     public function setCondition(Request $request): array
     {
-        $links = Categories::find($request->category_id)
-            ->contentsCategory()
+        $links = Category::find($request->category_id)
+            ->contents()
             ->get()
             ->keyby('id')
             ->toArray();
@@ -32,16 +32,15 @@ class ContentsModuleConfig extends AbstractModuleConfig
     {
         $response[] = [
             'name'  => 'Principal',
-            'route' => route('contents.form', ['id' => $id, 'category_id' => $request->category_id]),
+            'route' => route('content.form', ['id' => $id, 'category_id' => $request->category_id]),
         ];
 
         if (is_null($id) === false) {
 
             $response[] = [
                 'name'  => 'Arquivos',
-                'route' => route('files.listGalleries', ['module' => 'contents', 'link_id' => $id, 'category_id' => $request->category_id]),
+                'route' => route('file.list-galleries', ['module' => 'content', 'link_id' => $id, 'category_id' => $request->category_id]),
             ];
-
         }
 
         return $response;

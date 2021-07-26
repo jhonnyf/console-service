@@ -16,7 +16,7 @@ class Content extends Model
 
     public function files()
     {
-        return $this->belongsToMany(Files::class, 'links_files_contents')->withTimestamps()->with('fileGallery');
+        return $this->belongsToMany(File::class, 'content_file');
     }
 
     public function categories()

@@ -87,7 +87,9 @@ abstract class MainController extends BaseController
         $formValues = $this->Model->find($id);
         $formValues = $formValues ? $formValues->toArray() : [];
 
-        $FormGenerator = new FormGenerator(route('user.store', ['id' => $id]));
+        $routeFrom = is_null($id) ? route("{$this->Route}.store", ['id' => $id]) : route("{$this->Route}.update", ['id' => $id]);
+
+        $FormGenerator = new FormGenerator($routeFrom);
         $setData       = $this->setData($request);
         if (count($setData) > 0) {
             foreach ($setData as $key => $value) {
@@ -99,6 +101,10 @@ abstract class MainController extends BaseController
                     $input->setValue($value);
                 }
             }
+        }
+
+        if (is_null($id) === false) {
+            $FormGenerator->setVars('id', $id);
         }
 
         $FormGenerator->modelForm($this->Model, $formValues);
@@ -158,7 +164,7 @@ abstract class MainController extends BaseController
     }
 
     protected function setNav(Request $request, int $id = null): array
-    {
+    {        
         $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
 
         return $ModuleConfig->setNav($request, $id);

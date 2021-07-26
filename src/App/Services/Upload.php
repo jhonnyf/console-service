@@ -36,8 +36,8 @@ class Upload
         $File = File::find($response->id);
         if ($module === 'user') {
             $File->userFiles()->attach($link_id);
-        } elseif ($module === 'contents') {
-            // $File->contentsFile()->attach($link_id);
+        } elseif ($module === 'content') {
+             $File->contentFiles()->attach($link_id);
         } elseif ($module == 'categories') {
             // $File->categoriesFile()->attach($link_id);
         } elseif ($module == 'products') {

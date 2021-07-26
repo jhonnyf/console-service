@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use SenventhCode\ConsoleService\App\Http\Controllers\ContentsController;
 use SenventhCode\ConsoleService\App\Http\Controllers\DashboardController;
 use SenventhCode\ConsoleService\App\Http\Controllers\FileController;
 use SenventhCode\ConsoleService\App\Http\Controllers\LoginController;
@@ -80,12 +81,13 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         });
 
         Route::group(['prefix' => 'content'], function () {
-            Route::get('form/{id?}', 'ContentsController@form')->name('content.form');
-            Route::get('active/{id}', 'ContentsController@active')->name('content.active');
-            Route::get('destroy/{id}', 'ContentsController@destroy')->name('content.destroy');
-            Route::get('', 'ContentsController@index')->name('content.index');
-            Route::post('', 'ContentsController@store')->name('content.store');
-            Route::put('{id}', 'ContentsController@update')->name('content.update');
+            Route::get('export', [ContentsController::class, 'export'])->name('content.export');
+            Route::get('', [ContentsController::class, 'index'])->name('content.index');
+            Route::get('form/{id?}', [ContentsController::class, 'form'])->name('content.form');
+            Route::post('form', [ContentsController::class, 'store'])->name('content.store');
+            Route::put('form/{id}', [ContentsController::class, 'update'])->name('content.update');
+            Route::get('active/{id}', [ContentsController::class, 'active'])->name('content.active');
+            Route::get('destroy/{id}', [ContentsController::class, 'destroy'])->name('content.destroy');
         });
 
         Route::group(['prefix' => 'language'], function () {
