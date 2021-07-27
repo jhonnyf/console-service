@@ -37,6 +37,6 @@ class File extends Model
 
     public function categoryFiles()
     {
-        return $this->belongsToMany(Categories::class, 'links_categories_files')->withTimestamps();
+        return $this->belongsToMany(Category::class, 'category_file')->withTimestamps();
     }
 }

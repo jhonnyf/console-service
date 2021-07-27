@@ -38,8 +38,8 @@ class Upload
             $File->userFiles()->attach($link_id);
         } elseif ($module === 'content') {
              $File->contentFiles()->attach($link_id);
-        } elseif ($module == 'categories') {
-            // $File->categoriesFile()->attach($link_id);
+        } elseif ($module == 'category') {
+             $File->categoryFiles()->attach($link_id);
         } elseif ($module == 'products') {
             // $File->productsFile()->attach($link_id);
         }

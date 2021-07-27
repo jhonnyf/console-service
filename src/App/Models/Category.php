@@ -18,15 +18,10 @@ class Category extends Model
         return $this->belongsToMany(Content::class, 'category_content')->using(CategoryContents::class)->withPivot('language_id')->withTimestamps();
     }
 
-    // public function files()
-    // {
-    //     return $this->belongsToMany(Files::class, 'links_categories_files')->withTimestamps()->with('fileGallery');
-    // }
-
-    // public function contentsCategory()
-    // {
-    //     return $this->belongsToMany(Contents::class, 'links_categories_contents')->withTimestamps();
-    // }
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'category_file');
+    }
 
     public function primary()
     {

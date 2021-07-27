@@ -32,7 +32,7 @@ class CategoryModuleConfig extends AbstractModuleConfig
 
             $response[] = [
                 'name'  => 'Arquivos',
-                'route' => route('file.list-galleries', ['module' => 'categories', 'link_id' => $id, 'category_id' => $request->category_id]),
+                'route' => route('file.list-galleries', ['module' => 'category', 'link_id' => $id, 'category_id' => $request->category_id]),
             ];
 
         }

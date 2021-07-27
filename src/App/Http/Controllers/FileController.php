@@ -2,6 +2,7 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Content;
 use App\Models\File as Model;
 use App\Models\FileGallery;
@@ -47,10 +48,12 @@ class FileController
                     ->where('active', '<>', 2)
                     ->where('file_gallery_id', $data['file_gallery_id'])
                     ->get();
-            } elseif ($module == 'categories') {
-                // $data['entity'] = Categories::find($link_id)
-                //     ->files()
-                //     ->where('active', '<>', 2);
+            } elseif ($module == 'category') {
+                $data['files'] = Category::find($link_id)
+                ->files()
+                ->where('active', '<>', 2)
+                ->where('file_gallery_id', $data['file_gallery_id'])
+                ->get();
             }
         }
 

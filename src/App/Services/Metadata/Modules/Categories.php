@@ -11,9 +11,8 @@ abstract class Categories implements RulesInterface
         return $columns;
     }
 
-    public static function formRules(array $columns, array $formValues = []): array
+    public static function baseRules(array $columns): array
     {
-        $columns = Metadata::formRulesMain($columns, $formValues);
 
         $columns['default']['type'] = 'hidden';
 

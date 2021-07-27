@@ -67,8 +67,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
 
         Route::group(['prefix' => 'category'], function () {
             Route::group(['prefix' => 'content'], function () {
-                Route::get('{id}', 'CategoriesController@content')->name('category.content');
-                Route::post('{id}', 'CategoriesController@contentUpdate')->name('category.content-update');
+                Route::get('{id}', [CategoryController::class, 'content'])->name('category.content');
+                Route::put('{id}', [CategoryController::class, 'contentUpdate'])->name('category.content-update');
             });
 
             Route::get('show/{id}', [CategoryController::class, 'show'])->name('category.show');
@@ -78,7 +78,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
             Route::get('destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
             Route::get('', [CategoryController::class, 'index'])->name('category.index');
             Route::post('', [CategoryController::class, 'store'])->name('category.store');
-            Route::put('{id}', [CategoryController::class, 'update'])->name('category.update');  
+            Route::put('{id}', [CategoryController::class, 'update'])->name('category.update');
         });
 
         Route::group(['prefix' => 'content'], function () {

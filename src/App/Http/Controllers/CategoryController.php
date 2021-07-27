@@ -3,11 +3,12 @@
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
 use App\Models\Category as Model;
+use App\Models\Content;
 use App\Models\Language;
-use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
 use SenventhCode\ConsoleService\App\Http\Requests\CategoriesStore;
 use SenventhCode\ConsoleService\App\Http\Requests\CategoriesUpdate;
+use SenventhCode\FormGenerator\FormGenerator;
 
 class CategoryController extends MainController
 {
@@ -89,7 +90,7 @@ class CategoryController extends MainController
     }
 
     public function update(int $id, CategoriesUpdate $request)
-    { 
+    {
         Model::find($id)
             ->fill($request->all())
             ->save();
@@ -119,54 +120,35 @@ class CategoryController extends MainController
             'name'                   => $this->Name,
             'nav'                    => $this->setNav($request, $id),
             'category_id'            => $request->category_id,
-            'navLanguageRoute'       => 'categories.content',
+            'navLanguageRoute'       => 'category.content',
             'navLanguageRouteParams' => ['id' => $id, 'category_id' => $request->category_id],
+            'enableLanguages'        => true,
+            'classItem'        => [],
         ];
 
-        $LanguageDefault = Languages::where('default', true)->first();
+        $LanguageDefault = Language::where('default', true)->first();
 
         $language_id             = isset($request->language_id) ? $request->language_id : $LanguageDefault->id;
         $data['language_id']     = $language_id;
         $data['languageDefault'] = $LanguageDefault;
 
-        $CategoryContent = Model::find($id)->contents->where('language_id', $language_id)->first();
-        $data['content'] = $CategoryContent;
+        $CategoryContent = Model::find($id)->contents()->where('language_id', $language_id)->first()->toArray();
 
-        $Form = new FormElement();
-        $Form->setAutocomplete(false);
-        $Form->setMethod('post');
-        $Form->setAction(route('categories.content-update', ['id' => $id]));
+        $Form = new FormGenerator(route('category.content-update', ['id' => $id, 'language_id' => $language_id]));
+        $Form->modelForm(new Content() , $CategoryContent);
+        $Form->setVars('id', $CategoryContent['id']);
 
-        $language_id = $Form->newElement('input');
-        $language_id->setName('language_id');
-        $language_id->setType('hidden');
-        $language_id->setValue($CategoryContent->language_id);
+        $data['form'] = $Form->render();
 
-        $Form->addElement($language_id);
-
-        $title = $Form->newElement('input');
-        $title->setName('title');
-        $title->setValue($CategoryContent->title);
-
-        $Form->addElement($title);
-
-        $content = $Form->newElement('textarea');
-        $content->setName('content');
-        $content->setValue($CategoryContent->content);
-
-        $Form->addElement($content);
-
-        $data['form'] = $Form->render($data);
-
-        return view('console-service::categories.content', $data);
+        return view('console-service::module-base.form', $data);
     }
 
     public function contentUpdate(int $id, Request $request)
     {
-        $CategoryContent = Model::find($id)->contents->where('language_id', $request->language_id)->first();
+        $CategoryContent = Model::find($id)->contents()->where('language_id', $request->language_id)->first();
 
         $CategoryContent->fill($request->all())->save();
 
-        return redirect()->route('categories.content', ['id' => $id, 'language_id' => $request->language_id]);
+        return redirect()->route('category.content', ['id' => $id, 'language_id' => $request->language_id]);
     }
 }
