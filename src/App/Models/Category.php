@@ -14,7 +14,7 @@ class Category extends Model
     }
 
     public function contents()
-    {        
+    {
         return $this->belongsToMany(Content::class, 'category_content')->using(CategoryContents::class)->withPivot('language_id')->withTimestamps();
     }
 
@@ -31,5 +31,14 @@ class Category extends Model
     public function secondary()
     {
         return $this->belongsToMany(Category::class, 'category_category', 'primary_id', 'secondary_id')->withTimestamps();
+    }
+
+    /**
+     *
+     */
+
+    public function contentsCategory()
+    {
+        return $this->belongsToMany(Content::class, 'content_category')->withTimestamps();
     }
 }

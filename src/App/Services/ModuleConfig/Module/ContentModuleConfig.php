@@ -21,7 +21,7 @@ class ContentModuleConfig extends AbstractModuleConfig
     public function setCondition(Request $request): array
     {
         $links = Category::find($request->category_id)
-            ->contents()
+            ->contentsCategory()
             ->get()
             ->keyby('id')
             ->toArray();
