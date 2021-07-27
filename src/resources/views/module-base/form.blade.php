@@ -30,3 +30,7 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    <script src="{{ URL::asset('console-service/assets/libs/ckeditor/ckeditor.min.js') }}"></script>
+@endsection

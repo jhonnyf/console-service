@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "@adactive/bootstrap-tagsinput": "^0.8.2",
+        "@ckeditor/ckeditor5-build-classic": "^29.0.0",
         "@curiosityx/bootstrap-session-timeout": "^1.0.0",
         "@fancyapps/ui": "*",
         "@fullcalendar/bootstrap": "^4.3.0",

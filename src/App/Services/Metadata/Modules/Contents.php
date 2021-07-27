@@ -21,6 +21,7 @@ abstract class Contents implements RulesInterface
         $columns['slug']['readonly']  = true;
 
         $columns['content']['elementType'] = 'textarea';
+        $columns['content']['class'] = ['ckeditor'];
 
         return $columns;
     }

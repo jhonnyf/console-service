@@ -3187,6 +3187,10 @@ div.dt-button-info h2 {
   transition-property: height, visibility;
 }
 
+.ck-content {
+  min-height: 200px;
+}
+
 /* 18. Components Demo */
 
 .button-list {

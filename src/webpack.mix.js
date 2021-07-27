@@ -48,6 +48,7 @@ var third_party_assets = {
         { "name": "fullcalendar-interaction", "assets": ["./node_modules/@fullcalendar/interaction/main.min.js"] },
         { "name": "fullcalendar-timegrid", "assets": ["./node_modules/@fullcalendar/timegrid/main.min.js", "./node_modules/@fullcalendar/timegrid/main.min.css"] },
         { "name": "fullcalendar-list", "assets": ["./node_modules/@fullcalendar/list/main.min.js", "./node_modules/@fullcalendar/list/main.min.css"] },
+        { "name": "ckeditor", "assets": ["./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js"] },
         { "name": "list-js", "assets": ["./node_modules/list.js/dist/list.min.js"] },
         { "name": "jqvmap", "assets": ["./node_modules/jqvmap/dist/jquery.vmap.min.js", "./node_modules/jqvmap/dist/jqvmap.min.css", "./node_modules/jqvmap/dist/maps/jquery.vmap.usa.js",] },
         {

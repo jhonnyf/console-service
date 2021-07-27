@@ -12109,3 +12109,7 @@ p {
   padding-bottom: 1px;
 }
 
+.ck-content {
+  min-height: 200px;
+}
+
