@@ -18,7 +18,7 @@ class CreateContents extends Migration
             $table->date('date')->nullable();
             $table->string('title');
             $table->string('subtitle')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->string('link')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();    
