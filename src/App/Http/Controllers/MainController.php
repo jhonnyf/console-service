@@ -98,7 +98,7 @@ abstract class MainController extends BaseController
 
         $formValues = $this->Model->find($id);
         if (isset($request->language_id)) {
-            
+            $formValues = $formValues->contents()->where('language_id', $language_id)->first();
         }
         $formValues = $formValues ? $formValues->toArray() : [];
 

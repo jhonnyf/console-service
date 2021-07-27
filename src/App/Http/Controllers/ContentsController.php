@@ -3,6 +3,7 @@
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
 use App\Models\Content as Model;
+use App\Models\ContentContents;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,51 +25,55 @@ class ContentsController extends MainController
 
         $response = Model::create($create);
 
-        $languageDefault = Language::where('active', '<>', 2)
-            ->where('default', true)
-            ->first();
-
         $Content = Model::find($response->id);
+        $Content->category()->attach($request->category_id);
 
-        $Content->language_id = $languageDefault->id;
-        $Content->save();
+        $responseLanguages = Language::where('active', '<>', 2)
+            ->orderBy('default', 'desc');
 
-        $Content->categories()->attach($create['category_id']);
+        if ($responseLanguages->exists()) {
+            foreach ($responseLanguages->get() as $language) {
 
-        $languages = Language::where('active', '<>', 2)
-            ->where('default', false);
-        if ($languages->exists()) {
-            foreach ($languages->get() as $key => $value) {
-                $newContent = $Content->toArray();
+                $insert = [
+                    'id'          => $Content->id,
+                    'language_id' => $language->id,
+                    'created_at'  => date('Y-m-d H:i:s'),
+                    'updated_at'  => date('Y-m-d H:i:s'),
+                ];
 
-                $newContent['language_id']  = $value['id'];
-                $newContent['slug']         = $this->checkSlug($newContent['title']);
-                $newContent['created_at']   = date('Y-m-d H:i:s');
-                $newContent['updated_at']   = date('Y-m-d H:i:s');
-                $newContent['reference_id'] = $newContent['id'];
+                if ($language->default == 0) {
+                    $responseContent = Model::create(['title' => ""]);
 
-                unset($newContent['id']);
+                    $insert['content_id'] = $responseContent->id;
+                } else {
+                    $insert['content_id'] = $Content->id;
+                }
 
-                Model::insert($newContent);
+                ContentContents::insert($insert);
             }
         }
 
-        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'language_id' => $Content->language_id, 'category_id' => $create['category_id']]);
+        $language_id = $responseLanguages->first()->id;
+
+        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'language_id' => $language_id, 'category_id' => $create['category_id']]);
     }
 
     public function update(int $id, Request $request)
     {
         $fill = $request->all();
 
-        $fill['slug'] = $this->checkSlug($fill['title'], $id);
+        $content_id_by_langague = $request->id;
 
-        $Content = Model::find($id);
+        $fill['slug'] = $this->checkSlug($fill['title'], $content_id_by_langague);
 
+        $Content = Model::find($content_id_by_langague);
         $Content->fill($fill)->save();
+        
+        $ContentBase = Model::find($id);
 
-        $route_id = empty($Content->reference_id) ? $Content->id : $Content->reference_id;
+        $language_id = $ContentBase->contents()->where('content_id', $content_id_by_langague)->first()->pivot->language_id;
 
-        return redirect()->route("{$this->Route}.form", ['id' => $route_id, 'language_id' => $Content->language_id, 'category_id' => $fill['category_id']]);
+        return redirect()->route("{$this->Route}.form", ['id' => $id, 'language_id' => $language_id, 'category_id' => $fill['category_id']]);
     }
 
     /**

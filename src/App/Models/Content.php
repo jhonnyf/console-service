@@ -14,10 +14,10 @@ class Content extends Model
         $this->attributes['slug']  = \Illuminate\Support\Str::slug($value, '-');
     }
 
-    public function contentLanguage()
+    public function contents()
     {
-        return $this->belongsToMany(Content::class, 'file_content')
-            ->using(FileContents::class)
+        return $this->belongsToMany(Content::class, 'content_content', 'id')
+            ->using(ContentContents::class)
             ->withPivot('language_id')
             ->withTimestamps();
     }
@@ -27,8 +27,8 @@ class Content extends Model
         return $this->belongsToMany(File::class, 'content_file');
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Categories::class, 'links_categories_contents')->withTimestamps();
+        return $this->belongsToMany(Category::class, 'content_category')->withTimestamps();
     }
 }
