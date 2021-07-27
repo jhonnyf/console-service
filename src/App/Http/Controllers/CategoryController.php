@@ -64,25 +64,14 @@ class CategoryController extends MainController
         $response = Model::create($create);
         $this->saveLink($response->id, $create['category_id']);
 
-        $languages = Language::where('active', '<>', 2)->orderBy('default', 'desc');
-        if ($languages->exists()) {
-            $reference_id = null;
-            foreach ($languages->get() as $language) {
-                $responseContent = Model::find($response->id)->contents()->create();
+        $responseLanguages = Language::where('active', '<>', 2)
+            ->orderBy('default', 'desc');
 
-                $content = Model::find($response->id)
-                    ->contents()
-                    ->where('id', $responseContent->id)
-                    ->first();
-
-                $content->language_id = $language->id;
-                if (is_null($reference_id) === false) {
-                    $content->reference_id = $reference_id;
-                }
-
-                $content->save();
-
-                $reference_id = $content->id;
+        if ($responseLanguages->exists()) {
+            $Category = Model::find($response->id);
+            foreach ($responseLanguages->get() as $language) {
+                $responseContent = Content::create(['title' => ""]);
+                $Category->contents()->attach($responseContent->id, ['language_id' => $language->id]);
             }
         }
 
@@ -102,8 +91,8 @@ class CategoryController extends MainController
     {
         $Category = Model::find($id);
 
-        $Category->categoryPrimary()->detach();
-        $Category->categoryPrimary()->attach($category_id);
+        $Category->primary()->detach();
+        $Category->primary()->attach($category_id);
 
         return;
     }
