@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col text-center">
             @if ($category->id > 1)
-                <a href="{{ route('category.show', ['id' => $category->categoryPrimary->first()->id]) }}" class="btn btn-primary">voltar</a>
+                <a href="{{ route('category.show', ['id' => $category->primary->first()->id]) }}" class="btn btn-primary">voltar</a>
             @endif            
             <a class="btn btn-light" href="{{ route('category.form', ['category_id' => $category->id]) }}" >
                 <i data-feather="plus" class="icon-dual"></i> adicionar

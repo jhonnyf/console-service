@@ -1,1 +1,1 @@
-<x-categories-list :category="$category" />
+<x-console-service-categories-list :category="$category" />
