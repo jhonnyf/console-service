@@ -9,7 +9,7 @@ use SenventhCode\ConsoleService\App\Http\Requests\FileUpload;
 
 class Upload
 {
-    public function uploadFIle(string $module, int $link_id, int $file_gallery_id, FileUpload $request, string $fileName = ''): File
+    public function uploadFIle(string $module, int $link_id, int $file_gallery_id,  $request, string $fileName = ''): File
     {
         $file = $request->file('file');
 
