@@ -20,7 +20,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-body">
-                    @if ($enableLanguages && $id > 0)
+                    @if (isset($enableLanguages) && $enableLanguages == true && $id > 0)
                         <x-console-service-nav-languages :route="$navLanguageRoute" :routeParams="$navLanguageRouteParams" :languageId="$language_id" :classItem="$classItem" />    
                     @endif                    
 
