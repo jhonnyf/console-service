@@ -50,7 +50,7 @@
             @endif
         </ul>
     </li>    
-    <li class="menu-title">Configurações</li>
+    {{-- <li class="menu-title">Configurações</li>
     <li>
         <a href="{{ route('language.index') }}">
             <i data-feather="mic"></i>
@@ -62,5 +62,5 @@
             <i data-feather="file-plus"></i>
             <span>Tipo de galeria</span>            
         </a>        
-    </li>
+    </li> --}}
 </ul>

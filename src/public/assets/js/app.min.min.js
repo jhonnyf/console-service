@@ -232,7 +232,9 @@ function ($) {
 
         // feather
         feather.replace();
-        ClassicEditor.create(document.querySelector( '.ckeditor' ));
+        if (document.querySelector( '.ckeditor' )) {
+            ClassicEditor.create(document.querySelector( '.ckeditor' ));    
+        }
     },
 
     $.App = new App, $.App.Constructor = App

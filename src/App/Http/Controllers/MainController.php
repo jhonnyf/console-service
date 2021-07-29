@@ -131,22 +131,38 @@ abstract class MainController extends BaseController
         return view($view, $data);
     }
 
-    public function active(int $id)
+    public function active(int $id, Request $request)
     {
         $Object = $this->Model->find($id);
 
         $Object->active = $Object->active === 1 ? 0 : 1;
         $Object->save();
 
+        if ($request->return && $request->return == 'json') {
+            return response()->json([
+                'error'   => false,
+                'message' => 'Ação realizada com sucesso!',
+                'return'  => $Object,
+            ]);
+        }
+
         return redirect()->back();
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id, Request $request)
     {
         $Object = $this->Model->find($id);
 
         $Object->active = 2;
         $Object->save();
+
+        if ($request->return && $request->return == 'json') {
+            return response()->json([
+                'error'   => false,
+                'message' => 'Ação realizada com sucesso!',
+                'return'  => [],
+            ]);
+        }
 
         return redirect()->back();
     }

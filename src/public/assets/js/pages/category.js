@@ -2098,41 +2098,90 @@ process.umask = function() { return 0; };
 /*!****************************************!*\
   !*** ./resources/js/pages/category.js ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: Category */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Category", function() { return Category; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var getChild = function getChild() {
-  var id = $(this).data('id');
-  var url = $(this).data('url');
-  axios.post(url, {
-    'id': id
-  }).then(function (response) {
-    response = response.data;
 
-    if (response.error === false) {
-      var append_element = true;
-      $('.structure-category > .col').each(function () {
-        var parent_id = $(this).data('parent_id');
+var Category = function () {
+  var getChild = function getChild() {
+    var id = $(this).data('id');
+    var url = $(this).data('url');
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
+      'id': id
+    }).then(function (response) {
+      response = response.data;
 
-        if (parent_id == response.result.parent_id) {
-          append_element = false;
-        } else {
-          $(this).remove();
+      if (response.error === false) {
+        var append_element = true;
+        $('.structure-category > .col').each(function () {
+          var parent_id = $(this).data('parent_id');
+
+          if (parent_id == response.result.parent_id) {
+            append_element = false;
+          } else {
+            $(this).remove();
+          }
+        });
+
+        if (append_element) {
+          $('.structure-category').append(response.result.html);
+          feather.replace();
         }
-      });
+      }
+    });
+  };
 
-      if (append_element) {
-        $('.structure-category').append(response.result.html);
+  var active = function active() {
+    var element = $(this);
+    var url = element.attr('href');
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url + "?return=json").then(function (response) {
+      var data = response.data;
+
+      if (data.error == false) {
+        var _active = data["return"].active === 1 ? '<i data-feather="check-circle"></i>' : '<i data-feather="circle"></i>';
+
+        element.html("").html(_active);
         feather.replace();
       }
-    }
-  });
-};
+    });
+    return false;
+  };
 
-$(document).on('click', '.card-link', getChild);
+  var destroy = function destroy() {
+    var element = $(this);
+    var card = element.closest('.card');
+    var url = element.attr('href');
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url + "?return=json").then(function (response) {
+      var data = response.data;
+
+      if (data.error == false) {
+        card.slideUp('slow', function () {
+          $(this).remove();
+        });
+      }
+    });
+    return false;
+  };
+
+  return {
+    init: function init() {
+      $(document).on('click', '.card-link', getChild);
+      $(document).on('click', '.act-active', active);
+      $(document).on('click', '.act-destroy', destroy);
+    }
+  };
+}();
+
+
+$(function () {
+  Category.init();
+});
 
 /***/ }),
 

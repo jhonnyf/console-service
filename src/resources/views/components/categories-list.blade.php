@@ -18,11 +18,11 @@
                             <a href="{{ route("category.form", ['id' => $item->id, 'category_id' => $category->id]) }}">
                                 <i data-feather="edit-2" class="icon-sm"></i>
                             </a>                            
-                            <a href="{{ route("category.active", ['id' => $item->id]) }}">
+                            <a href="{{ route("category.active", ['id' => $item->id]) }}" class="act-active">
                                 <i data-feather="{{ $item->active == 1 ? 'check-circle' : 'circle'}}" class="icon-sm"></i>    
                             </a>      
                             @if ($item->default == 0)
-                                <a href="{{ route("category.destroy", ['id' => $item->id]) }}">
+                                <a href="{{ route("category.destroy", ['id' => $item->id]) }}" class="act-destroy">
                                     <i data-feather="trash-2" class="icon-sm"></i>
                                 </a>
                             @endif                                                  

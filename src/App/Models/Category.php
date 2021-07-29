@@ -30,7 +30,7 @@ class Category extends Model
 
     public function secondary()
     {
-        return $this->belongsToMany(Category::class, 'category_category', 'primary_id', 'secondary_id')->withTimestamps();
+        return $this->belongsToMany(Category::class, 'category_category', 'primary_id', 'secondary_id')->where('active', '<>', 2)->withTimestamps();
     }
 
     /**
