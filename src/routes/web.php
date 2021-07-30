@@ -57,6 +57,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
             });
 
             Route::get('export', [UserController::class, 'export'])->name('user.export');
+            Route::get('download/{file_gallery_id}', [UserController::class, 'download'])->name('user.download');
             Route::get('', [UserController::class, 'index'])->name('user.index');
             Route::get('form/{id?}', [UserController::class, 'form'])->name('user.form');
             Route::post('form', [UserController::class, 'store'])->name('user.store');
@@ -82,6 +83,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         });
 
         Route::group(['prefix' => 'content'], function () {
+            Route::get('download/{file_gallery_id}', [ContentsController::class, 'download'])->name('user.download');
             Route::get('export', [ContentsController::class, 'export'])->name('content.export');
             Route::get('', [ContentsController::class, 'index'])->name('content.index');
             Route::get('form/{id?}', [ContentsController::class, 'form'])->name('content.form');

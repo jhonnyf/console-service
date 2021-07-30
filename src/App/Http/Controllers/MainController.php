@@ -167,6 +167,34 @@ abstract class MainController extends BaseController
         return redirect()->back();
     }
 
+    public function download(int $file_gallery_id, Request $request)
+    {
+        $list = $this->Model->query();
+
+        $setCondition = $this->setCondition($request);
+        if (count($setCondition) > 0) {
+            foreach ($setCondition as $field => $value) {
+                if (is_array($value)) {
+                    $list->whereIn($field, $value);
+                } else {
+                    $list->where($field, $value);
+                }
+            }
+        }
+
+        $response = [];
+        foreach ($list->get() as $row) {
+            $file = $row->files()->where('file_gallery_id', $file_gallery_id)->get()->last();
+
+            $name = explode('/', $file->file_path);
+            $name = $name[1];
+
+            $response[] = $file->file_path;
+        }
+
+        return $response;
+    }
+
     /**
      * EXTRA
      */
