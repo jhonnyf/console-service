@@ -2,6 +2,7 @@
 
 namespace SenventhCode\ConsoleService\App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Language;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use SenventhCode\ConsoleService\App\Services\Metadata\Metadata;
 use SenventhCode\ConsoleService\App\Services\QueryService;
 use SenventhCode\FormGenerator\FormGenerator;
@@ -182,17 +184,57 @@ abstract class MainController extends BaseController
             }
         }
 
-        $response = [];
-        foreach ($list->get() as $row) {
-            $file = $row->files()->where('file_gallery_id', $file_gallery_id)->get()->last();
-
-            $name = explode('/', $file->file_path);
-            $name = $name[1];
-
-            $response[] = $file->file_path;
+        $categorySlug = '';
+        if ($request->category_id) {
+            $category     = Category::find($request->category_id);
+            $categorySlug = $category->contents()->where('language_id', 1)->first()->slug;
         }
 
-        return $response;
+        $nameDir = date('Y-m-d_H-i-s') . "_" . $categorySlug;
+
+        $response = [];
+        foreach ($list->get() as $row) {
+            $file = $row->files()->where('file_gallery_id', $file_gallery_id);
+            if ($file->exists()) {
+                $file = $file->get()->last();
+
+                if (Storage::exists("public/{$file->file_path}")) {
+
+                    $name = explode('/', $file->file_path);
+                    $name = $name[1];
+
+                    Storage::disk('local')->put("{$nameDir}/{$name}", Storage::get("public/{$file->file_path}"));
+
+                    $response[] = $file->file_path;
+                }
+            }
+        }
+
+        return $this->makeZip($nameDir);
+    }
+
+    private function makeZip(string $directory)
+    {
+        $zip_file = "{$directory}.zip";
+
+        $zip = new \ZipArchive;
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $path  = storage_path("app/{$directory}");
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file) {
+
+            if (!$file->isDir()) {
+                $filePath = $file->getRealPath();
+
+                $relativePath = substr($filePath, strlen($path) + 1);
+
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+
+        $zip->close();
+        return response()->download($zip_file);
     }
 
     /**
