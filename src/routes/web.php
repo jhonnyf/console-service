@@ -83,7 +83,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         });
 
         Route::group(['prefix' => 'content'], function () {
-            Route::get('download/{file_gallery_id}', [ContentsController::class, 'download'])->name('user.download');
+            Route::get('download/{file_gallery_id}', [ContentsController::class, 'download'])->name('content.download');
             Route::get('export', [ContentsController::class, 'export'])->name('content.export');
             Route::get('', [ContentsController::class, 'index'])->name('content.index');
             Route::get('form/{id?}', [ContentsController::class, 'form'])->name('content.form');
