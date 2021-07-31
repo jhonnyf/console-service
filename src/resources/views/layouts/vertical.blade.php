@@ -6,13 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
-        @if(isset($isDark) && $isDark)
-            @include('console-service::layouts.shared.head', ['isDark' => true])
+        @php
+        
+            $scheme = 'dark';                                
+            if (Cookie::has('colorScheme') && Cookie::get('colorScheme') == 'light') {
+                $scheme = 'light';               
+            }
+
+            $isDark = $scheme == 'light' ? false : true;
+        @endphp
+        @if(isset($isDark))
+            @include('console-service::layouts.shared.head', ['isDark' => $isDark])
         @elseif(isset($isRTL) && $isRTL)
             @include('console-service::layouts.shared.head', ['isRTL' => true])
-        @else
-            @include('console-service::layouts.shared.head', ['isDark' => true])
         @endif
     </head>
     @if(isset($isScrollable) && $isScrollable)

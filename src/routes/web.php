@@ -31,6 +31,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         });
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('color-scheme/{scheme}', [DashboardController::class, 'colorScheme'])->name('color-scheme');
 
         Route::group(['prefix' => 'user'], function () {
 
