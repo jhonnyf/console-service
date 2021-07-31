@@ -19,9 +19,7 @@
                 </button>
             </li>
         </ul>
-
         @php
-
             $scheme = 'light';
             $schemeIcon = 'sun';            
 
@@ -32,7 +30,7 @@
 
         @endphp
 
-        <a href="{{ route('color-scheme', ['scheme' => $scheme]) }}" class="ml-auto float-right"><i data-feather="{{ $schemeIcon }}"></i></a>
+        <a href="{{ route('color-scheme', ['scheme' => $scheme]) }}" class="ml-auto float-right" data-toggle="tooltip" data-placement="left" title="Esquema de cores"><i data-feather="{{ $schemeIcon }}"></i></a>
 
         {{-- <ul class="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">            
 

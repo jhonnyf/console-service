@@ -7,7 +7,6 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         @php
-        
             $scheme = 'dark';                                
             if (Cookie::has('colorScheme') && Cookie::get('colorScheme') == 'light') {
                 $scheme = 'light';               
