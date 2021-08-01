@@ -26,8 +26,7 @@
             if (Cookie::has('colorScheme') && Cookie::get('colorScheme') == 'light') {
                 $scheme = 'dark';
                 $schemeIcon = 'moon';    
-            }            
-
+            }
         @endphp
 
         <a href="{{ route('color-scheme', ['scheme' => $scheme]) }}" class="ml-auto float-right" data-toggle="tooltip" data-placement="left" title="Esquema de cores"><i data-feather="{{ $schemeIcon }}"></i></a>
