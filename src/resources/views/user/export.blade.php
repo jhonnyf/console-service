@@ -3,7 +3,10 @@
         <tr>                
             @foreach ($tableFields as $colums)
                 @foreach ($colums as $column)
-                    <th>{{ $column['name'] }}</th>    
+                    @php
+                        $label = isset($column['label']) ? $column['label'] : $column['name'];
+                    @endphp
+                    <th>{{ $label }}</th>    
                 @endforeach
             @endforeach
         </tr>
@@ -25,8 +28,12 @@
                                         $rowItem = $row->addresses->first();
                                     }
 
+                                    $value  = '';
+                                    if (is_null($rowItem) === false) {
+                                        $value = \SenventhCode\ConsoleService\App\Services\TableFieldsService::format($rowItem, $column);
+                                    }
                                 @endphp
-                                <td> {{ \SenventhCode\ConsoleService\App\Services\TableFieldsService::format($rowItem, $column) }}</td>
+                                <td>{{ $value }}</td>
                             @endforeach
                         @endforeach
                     </tr>

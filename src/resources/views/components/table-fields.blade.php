@@ -16,7 +16,7 @@
                 @foreach ($tableValues as $row)
                     <tr>
                         @foreach ($tableFields as $column)
-                            <td> {{ \SenventhCode\ConsoleService\App\Services\TableFieldsService::format($row, $column) }}</td>
+                            <td>{{ \SenventhCode\ConsoleService\App\Services\TableFieldsService::format($row, $column) }}</td>
                         @endforeach
                         <td class="text-center">
                             @php

@@ -34,6 +34,24 @@ abstract class Users implements RulesInterface
 
     public static function tableExport(array $columns)
     {
+
+        $columns['users']['first_name']['label'] = 'Nome';
+        $columns['users']['last_name']['label']  = 'sobrenome';
+        $columns['users']['email']['label']      = 'E-mail';
+        $columns['users']['document']['label']   = 'Documento';
+        $columns['users']['phone']['label']      = 'Telefone';
+        $columns['users']['cellphone']['label']  = 'Celular';
+        $columns['users']['created_at']['label'] = 'Criado em';
+
+        $columns['users_addresses']['zipcode']['label']    = 'CEP';
+        $columns['users_addresses']['address']['label']    = 'Endereço';
+        $columns['users_addresses']['number']['label']     = 'Número';
+        $columns['users_addresses']['complement']['label'] = 'Complemento';
+        $columns['users_addresses']['district']['label']   = 'Bairro';
+        $columns['users_addresses']['city']['label']       = 'Cidade';
+        $columns['users_addresses']['state']['label']      = 'Estado';
+        $columns['users_addresses']['country']['label']    = 'País';
+
         unset($columns['users']['active']);
         unset($columns['users']['password']);
         unset($columns['users']['remember_token']);
