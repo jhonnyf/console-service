@@ -220,9 +220,13 @@ abstract class MainController extends BaseController
         $zip = new \ZipArchive;
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-        $path  = storage_path("app/{$directory}");
+        $path = storage_path("app/{$directory}");
+        if (is_dir($path) === false) {
+            return redirect()->back();
+        }
+
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
-        foreach ($files as $name => $file) {
+        foreach ($files as $file) {
 
             if (!$file->isDir()) {
                 $filePath = $file->getRealPath();
