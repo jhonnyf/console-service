@@ -3,7 +3,10 @@
         <thead>
             <tr>                
                 @foreach ($tableFields as $colum)
-                    <th scope="col">{{ $colum['name'] }}</th>    
+                    @php
+                        $label = isset($colum['label']) ? $colum['label'] : $colum['name'];
+                    @endphp
+                    <th scope="col">{{ $label }}</th>    
                 @endforeach
                 <th scope="col" style="width: 150px">Ações</th>    
             </tr>

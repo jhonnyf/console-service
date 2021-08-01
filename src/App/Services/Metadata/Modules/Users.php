@@ -10,6 +10,15 @@ abstract class Users implements RulesInterface
 
     public static function tableRules(array $columns): array
     {
+        $columns['first_name']['label'] = 'Nome';
+        $columns['last_name']['label']  = 'Sobrenome';
+        $columns['email']['label']      = 'E-mail';
+        $columns['document']['label']   = 'Documento';
+        $columns['phone']['label']      = 'Telefone';
+        $columns['cellphone']['label']  = 'Celular';
+        $columns['created_at']['label'] = 'Criado em';
+        $columns['updated_at']['label'] = 'Atualizado em';
+
         unset($columns['active']);
         unset($columns['password']);
         unset($columns['remember_token']);
@@ -30,7 +39,7 @@ abstract class Users implements RulesInterface
         unset($columns['users']['remember_token']);
         unset($columns['users']['category_id']);
         unset($columns['users']['updated_at']);
-        
+
         unset($columns['users_addresses']['id']);
         unset($columns['users_addresses']['active']);
         unset($columns['users_addresses']['user_id']);
@@ -40,7 +49,7 @@ abstract class Users implements RulesInterface
         unset($columns['users_extensions']['user_id']);
         unset($columns['users_extensions']['created_at']);
         unset($columns['users_extensions']['updated_at']);
-        
+
         return $columns;
     }
 
