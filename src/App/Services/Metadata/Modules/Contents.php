@@ -17,11 +17,20 @@ abstract class Contents implements RulesInterface
 
     public static function baseRules(array $columns): array
     {
+        $columns['slug']['readonly'] = true;
+        $columns['slug']['label'] = 'Slug';
+
         $columns['title']['required'] = true;
-        $columns['slug']['readonly']  = true;
+        $columns['title']['label']    = 'Título';
+
+        $columns['date']['label']     = 'Data';
+        $columns['subtitle']['label'] = 'Subtítulo';
+        $columns['link']['label']     = 'Link';
+        $columns['video']['label']    = 'Vídeo';
 
         $columns['content']['elementType'] = 'textarea';
-        $columns['content']['class'] = ['ckeditor'];
+        $columns['content']['label']       = 'Conteúdo';
+        $columns['content']['class']       = ['ckeditor'];
 
         return $columns;
     }
