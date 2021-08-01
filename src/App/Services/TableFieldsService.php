@@ -17,9 +17,9 @@ class TableFieldsService
             $value = $row;
         } else {
             if (in_array($column['type'], ['datetime', 'timestamp'])) {
-                $value = date('d/m/Y H:i:s', strtotime($row->$parameter));
+                $value = empty($row->$parameter) == false ? date('d/m/Y H:i:s', strtotime($row->$parameter)) : '';
             } elseif ($column['type'] == 'date') {
-                $value = date('d/m/Y', strtotime($row->$parameter));
+                $value = empty($row->$parameter) == false ? date('d/m/Y', strtotime($row->$parameter)) : '';
             } else {
                 $value = $row->$parameter;
             }
