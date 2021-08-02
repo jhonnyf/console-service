@@ -34,7 +34,6 @@ abstract class Users implements RulesInterface
 
     public static function tableExport(array $columns)
     {
-
         $columns['users']['first_name']['label'] = 'Nome';
         $columns['users']['last_name']['label']  = 'sobrenome';
         $columns['users']['email']['label']      = 'E-mail';
@@ -51,6 +50,13 @@ abstract class Users implements RulesInterface
         $columns['users_addresses']['city']['label']       = 'Cidade';
         $columns['users_addresses']['state']['label']      = 'Estado';
         $columns['users_addresses']['country']['label']    = 'País';
+
+        $pathClass = '\App\Services\Metadata\Modules\Users';
+        if (class_exists($pathClass)) {
+            if (method_exists($pathClass, 'tableExport')) {
+                $columns = $pathClass::tableExport($columns);
+            }
+        }
 
         unset($columns['users']['active']);
         unset($columns['users']['password']);

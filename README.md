@@ -1,12 +1,17 @@
 # console-service
 Console service by laravel
 
-
+```sh
 php artisan vendor:publish --tag=migrations --force
+```
 
+```sh
 php artisan vendor:publish --tag=public --force
+```
 
+```sh
 php artisan storage:link
+```
 
 # Laravel excel
 
@@ -26,4 +31,6 @@ config/app.php
 
 Terminal
 
+```sh
 php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config
+```
