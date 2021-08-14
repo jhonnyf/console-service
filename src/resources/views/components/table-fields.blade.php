@@ -29,9 +29,9 @@
                             @endphp
                             @if ($files->exists())
                                 @php
-                                    $files = $files->where('file_gallery_id', 1)->get()->last();
+                                    $file = $files->where('file_gallery_id', 1)->get()->last();
                                 @endphp
-                                <a href="{{ Storage::url($files->file_path) }}" target="_blank">
+                                <a href="{{ route('file.download', ['id' => $file->id]) }}" target="_blank">
                                     <i data-feather="download" class="icon-sm"></i>
                                 </a>    
                             @endif                            
