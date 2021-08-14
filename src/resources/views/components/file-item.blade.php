@@ -8,6 +8,7 @@
             @endif        
         </div>
         <div class="text-center mt-3">
+            <a href="{{ route('file.download', ['id' => $file->id]) }}" target="_blank" class="btn btn-light"><i data-feather="download"></i></a>
             <a href="{{ route('file.form', ['id' => $file->id]) }}" class="btn btn-light act-form"><i data-feather="edit"></i></a>
             <a href="{{ route('file.active', ['id' => $file->id]) }}" class="btn btn-light act-active">{!! $file->active  === 1 ? '<i data-feather="check-circle"></i>' : '<i data-feather="circle"></i>' !!}</a>
             <a href="{{ route('file.destroy', ['id' => $file->id]) }}" class="btn btn-light act-destroy"><i data-feather="trash"></i></a>
