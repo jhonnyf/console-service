@@ -247,11 +247,13 @@ class UserController extends MainController
 
     public function passwordStore(int $id, Password $request)
     {
-        Model::find($id)->fill(['password' => Hash::make($request->password)])->save();
+        $User = Model::find($id);
+
+        $User->fill(['password' => Hash::make($request->password)])->save();
 
         $request->session()->flash('success', 'Ação realizada com sucesso!');
 
-        return redirect()->route("{$this->Route}.password", ['id' => $id, 'category_id' => $request->category_id]);
+        return redirect()->route("{$this->Route}.password", ['id' => $id, 'category_id' => $User->category->id]);
     }
 
     /**

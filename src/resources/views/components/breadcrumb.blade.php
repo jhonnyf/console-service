@@ -5,7 +5,7 @@
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Console</a></li>
                 <li class="breadcrumb-item">
                     @if (is_null($id) === false)
-                        <a href="{{ route("{$route}.index") }}">{{ $name }}</a>
+                        <a href="{{ route("{$route}.index", request()->all()) }}">{{ $name }}</a>
                     @else
                         {{ $name }}
                     @endif
