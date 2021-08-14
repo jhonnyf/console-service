@@ -1,5 +1,7 @@
-# console-service
+# Console Service
 Console service by laravel
+
+Terminal
 
 ```sh
 php artisan vendor:publish --tag=migrations --force
