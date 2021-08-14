@@ -10,6 +10,7 @@ use App\Models\Language;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use SenventhCode\ConsoleService\App\Http\Requests\FileUpload;
 use SenventhCode\ConsoleService\App\Services\Upload;
 use SenventhCode\FormGenerator\FormGenerator;
@@ -50,10 +51,10 @@ class FileController
                     ->get();
             } elseif ($module == 'category') {
                 $data['files'] = Category::find($link_id)
-                ->files()
-                ->where('active', '<>', 2)
-                ->where('file_gallery_id', $data['file_gallery_id'])
-                ->get();
+                    ->files()
+                    ->where('active', '<>', 2)
+                    ->where('file_gallery_id', $data['file_gallery_id'])
+                    ->get();
             }
         }
 
@@ -158,6 +159,13 @@ class FileController
             'message' => 'Ação realizada com sucesso',
             'result'  => [],
         ]);
+    }
+
+    public function download(int $id)
+    {
+        $File = Model::find($id);
+
+        return Storage::download("public/{$File->file_path}");
     }
 
 }
