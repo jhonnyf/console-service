@@ -5,6 +5,7 @@ use SenventhCode\ConsoleService\App\Http\Controllers\CategoryController;
 use SenventhCode\ConsoleService\App\Http\Controllers\ContentsController;
 use SenventhCode\ConsoleService\App\Http\Controllers\DashboardController;
 use SenventhCode\ConsoleService\App\Http\Controllers\FileController;
+use SenventhCode\ConsoleService\App\Http\Controllers\FileGalleryController;
 use SenventhCode\ConsoleService\App\Http\Controllers\LanguageController;
 use SenventhCode\ConsoleService\App\Http\Controllers\LoginController;
 use SenventhCode\ConsoleService\App\Http\Controllers\UserController;
@@ -123,12 +124,13 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
         });
 
         Route::group(['prefix' => 'file-gallery'], function () {
-            Route::get('list', [FileGallerieController::class, 'index'])->name('file-gallery.index');
-            Route::get('form/{id?}', [FileGallerieController::class, 'form'])->name('file-gallery.form');
-            Route::post('form', [FileGallerieController::class, 'store'])->name('file-gallery.store');
-            Route::put('form/{id}', [FileGallerieController::class, 'update'])->name('file-gallery.update');
-            Route::get('active/{id}', [FileGallerieController::class, 'active'])->name('file-gallery.active');
-            Route::get('destroy/{id}', [FileGallerieController::class, 'destroy'])->name('file-gallery.destroy');
+            Route::get('list', [FileGalleryController::class, 'index'])->name('file-gallery.index');
+            Route::get('form/{id?}', [FileGalleryController::class, 'form'])->name('file-gallery.form');
+            Route::post('form', [FileGalleryController::class, 'store'])->name('file-gallery.store');
+            Route::put('form/{id}', [FileGalleryController::class, 'update'])->name('file-gallery.update');
+            Route::get('active/{id}', [FileGalleryController::class, 'active'])->name('file-gallery.active');
+            Route::get('destroy/{id}', [FileGalleryController::class, 'destroy'])->name('file-gallery.destroy');
+            Route::get('export', [FileGalleryController::class, 'export'])->name('file-gallery.export');
         });
     });
 });

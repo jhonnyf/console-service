@@ -248,7 +248,10 @@ abstract class MainController extends BaseController
 
     private function setModuleVariables(): void
     {
-        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $module = ucwords(str_replace('-', ' ', $this->Route));
+        $module = str_replace(' ', '', $module);
+
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . $module . "ModuleConfig");
 
         $this->Route     = $ModuleConfig->Route;
         $this->TableName = $ModuleConfig->TableName;
@@ -260,21 +263,30 @@ abstract class MainController extends BaseController
 
     protected function setData(Request $request): array
     {
-        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $module = ucwords(str_replace('-', ' ', $this->Route));
+        $module = str_replace(' ', '', $module);
+
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . $module . "ModuleConfig");
 
         return $ModuleConfig->setData($request);
     }
 
     protected function setCondition(Request $request): array
     {
-        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $module = ucwords(str_replace('-', ' ', $this->Route));
+        $module = str_replace(' ', '', $module);
+
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . $module . "ModuleConfig");
 
         return $ModuleConfig->setCondition($request);
     }
 
     protected function setNav(Request $request, int $id = null): array
     {
-        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+        $module = ucwords(str_replace('-', ' ', $this->Route));
+        $module = str_replace(' ', '', $module);
+
+        $ModuleConfig = App::make("\SenventhCode\ConsoleService\App\Services\ModuleConfig\Module\\" . $module . "ModuleConfig");
 
         return $ModuleConfig->setNav($request, $id);
     }

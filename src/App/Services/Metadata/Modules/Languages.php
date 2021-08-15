@@ -10,6 +10,12 @@ abstract class Languages implements RulesInterface
 
     public static function tableRules(array $columns): array
     {
+
+        $columns['language']['label']   = 'Linguagem';
+        $columns['code']['label']       = 'Código';
+        $columns['created_at']['label'] = 'Criado em';
+        $columns['updated_at']['label'] = 'Atualizado em';
+
         unset($columns['default']);
         unset($columns['active']);
 
