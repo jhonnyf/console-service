@@ -5,6 +5,7 @@ use SenventhCode\ConsoleService\App\Http\Controllers\CategoryController;
 use SenventhCode\ConsoleService\App\Http\Controllers\ContentsController;
 use SenventhCode\ConsoleService\App\Http\Controllers\DashboardController;
 use SenventhCode\ConsoleService\App\Http\Controllers\FileController;
+use SenventhCode\ConsoleService\App\Http\Controllers\LanguageController;
 use SenventhCode\ConsoleService\App\Http\Controllers\LoginController;
 use SenventhCode\ConsoleService\App\Http\Controllers\UserController;
 
@@ -112,21 +113,22 @@ Route::group(['middleware' => 'web', 'prefix' => 'console'], function () {
          */
 
         Route::group(['prefix' => 'language'], function () {
-            Route::get('list', 'LanguagesController@index')->name('language.index');
-            Route::get('form/{id?}', 'LanguagesController@form')->name('language.form');
-            Route::post('form', 'LanguagesController@store')->name('language.store');
-            Route::put('form/{id}', 'LanguagesController@update')->name('language.update');
-            Route::get('active/{id}', 'LanguagesController@active')->name('language.active');
-            Route::get('destroy/{id}', 'LanguagesController@destroy')->name('language.destroy');
+            Route::get('list', [LanguageController::class, 'index'])->name('language.index');
+            Route::get('form/{id?}', [LanguageController::class, 'form'])->name('language.form');
+            Route::post('form', [LanguageController::class, 'store'])->name('language.store');
+            Route::put('form/{id}', [LanguageController::class, 'update'])->name('language.update');
+            Route::get('active/{id}', [LanguageController::class, 'active'])->name('language.active');
+            Route::get('destroy/{id}', [LanguageController::class, 'destroy'])->name('language.destroy');
+            Route::get('export', [LanguageController::class, 'export'])->name('language.export');
         });
 
         Route::group(['prefix' => 'file-gallery'], function () {
-            Route::get('list', 'FilesGalleriesController@index')->name('file-gallery.index');
-            Route::get('form/{id?}', 'FilesGalleriesController@form')->name('file-gallery.form');
-            Route::post('form', 'FilesGalleriesController@store')->name('file-gallery.store');
-            Route::put('form/{id}', 'FilesGalleriesController@update')->name('file-gallery.update');
-            Route::get('active/{id}', 'FilesGalleriesController@active')->name('file-gallery.active');
-            Route::get('destroy/{id}', 'FilesGalleriesController@destroy')->name('file-gallery.destroy');
+            Route::get('list', [FileGallerieController::class, 'index'])->name('file-gallery.index');
+            Route::get('form/{id?}', [FileGallerieController::class, 'form'])->name('file-gallery.form');
+            Route::post('form', [FileGallerieController::class, 'store'])->name('file-gallery.store');
+            Route::put('form/{id}', [FileGallerieController::class, 'update'])->name('file-gallery.update');
+            Route::get('active/{id}', [FileGallerieController::class, 'active'])->name('file-gallery.active');
+            Route::get('destroy/{id}', [FileGallerieController::class, 'destroy'])->name('file-gallery.destroy');
         });
     });
 });

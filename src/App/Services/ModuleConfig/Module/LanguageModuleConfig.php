@@ -5,9 +5,9 @@ namespace SenventhCode\ConsoleService\App\Services\ModuleConfig\Module;
 use Illuminate\Http\Request;
 use SenventhCode\ConsoleService\App\Services\ModuleConfig\AbstractModuleConfig;
 
-class LanguagesModuleConfig extends AbstractModuleConfig
+class LanguageModuleConfig extends AbstractModuleConfig
 {
-    public $Route     = 'languages';
+    public $Route     = 'language';
     public $TableName = 'languages';
     public $Name      = 'Linguagem';
 
@@ -15,7 +15,7 @@ class LanguagesModuleConfig extends AbstractModuleConfig
     {
         $response[] = [
             'name'  => 'Principal',
-            'route' => route('languages.form', ['id' => $id]),
+            'route' => route('language.form', ['id' => $id]),
         ];
 
         return $response;
