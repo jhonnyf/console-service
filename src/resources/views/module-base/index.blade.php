@@ -10,11 +10,14 @@
             <div class="card">
                 <div class="card-body">           
 
-                    <div class="text-right mb-3">
-                        <a href="{{ route("{$route}.download", ['category_id' => $category_id, 'file_gallery_id' => 1]) }}" class="btn btn-primary width-lg"><i data-feather="download" class="icon-xs"></i> download de arquivos</a>
-                        <a href="{{ route("{$route}.export", ['category_id' => $category_id]) }}" class="btn btn-primary width-lg"><i data-feather="download" class="icon-xs"></i> exportar excel</a>
-                        <a href="{{ route("{$route}.form", ['category_id' => $category_id]) }}" class="btn btn-primary width-lg"><i data-feather="plus" class="icon-xs"></i> adicionar</a>
-                    </div>
+                    @if (view()->exists("console-service::{$route}.index-buttons"))
+                        @include("console-service::{$route}.index-buttons")
+                    @else
+                        <div class="text-right mb-3">
+                            <a href="{{ route("{$route}.export") }}" class="btn btn-primary width-lg"><i data-feather="download" class="icon-xs"></i> exportar excel</a>
+                            <a href="{{ route("{$route}.form") }}" class="btn btn-primary width-lg"><i data-feather="plus" class="icon-xs"></i> adicionar</a>
+                        </div>
+                    @endif
 
                     <div class="mb-3 d-flex justify-content-end">
                         <form action="" class="form-inline" method="get" autocomplete="off">
@@ -26,9 +29,9 @@
                                             <i data-feather="search" class="icon-xs"></i>    
                                         </button>
                                     </div>
-                                </div>                                    
-                            </div>                                
-                        </form>                    
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <x-console-service-table-fields :tableFields="$tableFields" :tableValues="$tableValues" :route="$route" :extraData="$extraData" />

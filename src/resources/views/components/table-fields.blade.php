@@ -23,18 +23,21 @@
                                 $params_form = ['id' => $row->id];
                                 if(isset($extraData) && count($extraData) > 0){
                                     $params_form = array_merge($params_form, $extraData);
-                                }
-
-                                $files = $row->files();
+                                }                                
                             @endphp
-                            @if ($files->exists())
+                            @if (method_exists($row, 'files'))
                                 @php
-                                    $file = $files->where('file_gallery_id', 1)->get()->last();
+                                    $files = $row->files();
                                 @endphp
-                                <a href="{{ route('file.download', ['id' => $file->id]) }}" target="_blank">
-                                    <i data-feather="download" class="icon-sm"></i>
-                                </a>    
-                            @endif                            
+                                @if ($files->exists())
+                                    @php
+                                        $file = $files->where('file_gallery_id', 1)->get()->last();
+                                    @endphp
+                                    <a href="{{ route('file.download', ['id' => $file->id]) }}" target="_blank">
+                                        <i data-feather="download" class="icon-sm"></i>
+                                    </a>    
+                                @endif 
+                            @endif                           
                             <a href="{{ route("{$route}.form", $params_form) }}">
                                 <i data-feather="edit-2" class="icon-sm"></i>
                             </a>                            

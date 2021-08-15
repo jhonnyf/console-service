@@ -48,7 +48,7 @@ class Metadata
 
     private static function checkClass(string $className): string
     {
-        $path = "\SenventhCode\ConsoleService\App\Services\Metadata\Master";
+        $path = "\SenventhCode\ConsoleService\App\Services\Metadata\Modules\Master";
         if (class_exists("\SenventhCode\ConsoleService\App\Services\Metadata\Modules\\{$className}")) {
             $path = "\SenventhCode\ConsoleService\App\Services\Metadata\Modules\\{$className}";
         }

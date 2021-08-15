@@ -36,9 +36,10 @@ abstract class MainController extends BaseController
     public function index(Request $request)
     {
         $data = [
-            'search' => isset($request->search) ? $request->search : '',
-            'route'  => $this->Route,
-            'name'   => $this->Name,
+            'search'    => isset($request->search) ? $request->search : '',
+            'route'     => $this->Route,
+            'name'      => $this->Name,
+            'extraData' => [],
         ];
 
         $setData = $this->setData($request);
